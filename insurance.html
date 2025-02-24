@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaintDaniels - Insurance Coverage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation remains the same -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-3xl font-bold text-mint">Saint<span class="text-coral">Daniels</span></a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="about.html" class="text-gray-700 hover:text-mint transition duration-300">About</a>
+                    <a href="network.html" class="text-gray-700 hover:text-mint transition duration-300">Network</a>
+                    <a href="insurance.html" class="text-mint">Insurance</a>
+                    <a href="login.html" class="bg-mint text-white px-6 py-2 rounded-full hover:bg-coral transition duration-300">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Insurance Coverage</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">We partner with leading insurance providers to ensure comprehensive coverage for your healthcare needs. Select your provider below to learn more about your benefits.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blue Cross Blue Shield -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-blue-600 p-6">
+                    <img src="https://via.placeholder.com/150x50" alt="BCBS Logo" class="h-12 w-auto">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Blue Cross Blue Shield</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">PPO Plans</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">HMO Networks</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">Medicare Advantage</span>
+                        </div>
+                    </div>
+                    <button class="mt-6 w-full bg-mint text-white py-2 rounded-lg hover:bg-coral transition duration-300">View Benefits</button>
+                </div>
+            </div>
+
+            <!-- Aetna -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-red-600 p-6">
+                    <img src="https://via.placeholder.com/150x50" alt="Aetna Logo" class="h-12 w-auto">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Aetna</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">Open Choice PPO</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">Managed Choice</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">High Deductible Plans</span>
+                        </div>
+                    </div>
+                    <button class="mt-6 w-full bg-mint text-white py-2 rounded-lg hover:bg-coral transition duration-300">View Benefits</button>
+                </div>
+            </div>
+
+            <!-- UnitedHealthcare -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-gray-800 p-6">
+                    <img src="https://via.placeholder.com/150x50" alt="UHC Logo" class="h-12 w-auto">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">UnitedHealthcare</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">Choice Plus</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">Options PPO</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600">Navigate HMO</span>
+                        </div>
+                    </div>
+                    <button class="mt-6 w-full bg-mint text-white py-2 rounded-lg hover:bg-coral transition duration-300">View Benefits</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coverage Details -->
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8">Plan Benefits & Coverage</h2>
+            
+            <!-- Location Verification Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-12">
+                <div class="flex flex-col space-y-4">
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-mint/10 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Verify Coverage Area</h3>
+                                <p class="text-gray-500 text-sm">Check if your location is within our coverage network</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-sm text-gray-500 mb-1">Your Location</p>
+                            <p class="text-lg font-medium text-gray-800" id="user-location">Detecting...</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-sm text-gray-500 mb-1">Network Status</p>
+                            <p class="text-lg font-medium text-gray-800" id="network-status">Checking...</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-sm text-gray-500 mb-1">Available Plans</p>
+                            <p class="text-lg font-medium text-gray-800" id="available-plans">Verifying...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coverage Tiers -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-mint mb-4">Basic Coverage</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Essential preventive care and wellness visits</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Primary care visits with standard copay</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Basic injury treatment and recovery</span>
+                        </li>
+                    </ul>
+                    <p class="mt-4 text-sm text-gray-500">Best for individuals seeking essential coverage for basic healthcare needs.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-mint">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-mint">Enhanced Coverage</h3>
+                        <span class="bg-mint/10 text-mint px-3 py-1 rounded-full text-sm">Recommended</span>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>All Basic Coverage benefits, plus:</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Lower copays for specialist visits</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Extended physical therapy sessions</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Advanced imaging and diagnostics</span>
+                        </li>
+                    </ul>
+                    <p class="mt-4 text-sm text-gray-500">Ideal for active individuals and amateur athletes requiring comprehensive care.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-mint mb-4">Premium Coverage</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>All Enhanced Coverage benefits, plus:</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Priority access to specialists</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Unlimited physical therapy</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <svg class="w-5 h-5 text-mint flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Global coverage for competitions</span>
+                        </li>
+                    </ul>
+                    <p class="mt-4 text-sm text-gray-500">Perfect for professional athletes and those requiring elite-level care.</p>
+                </div>
+            </div>
+
+            <!-- Coverage Impact -->
+            <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Understanding Coverage Impact</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-mint mb-4">Higher Coverage Benefits</h4>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-mint flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>Lower out-of-pocket costs for treatments and procedures</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-mint flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>More flexibility in choosing specialists and treatment options</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-mint flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>Access to advanced treatments and preventive care</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-coral mb-4">Limited Coverage Considerations</h4>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-coral flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                                <span>Higher deductibles and out-of-pocket maximums</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-coral flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                                <span>Limited access to specialists and treatment options</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-coral flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                                <span>Longer wait times for non-emergency procedures</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update all "View Benefits" buttons to "Enroll" -->
+        <script>
+            document.querySelectorAll('button').forEach(button => {
+                if (button.textContent.includes('View Benefits')) {
+                    button.textContent = 'Enroll';
+                }
+            });
+
+            // Location verification functionality
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    document.getElementById('user-location').textContent = "Geolocation not supported";
+                }
+            }
+
+            function showPosition(position) {
+                // Simulate a location check
+                document.getElementById('user-location').textContent = "New York, NY 10001";
+                document.getElementById('network-status').textContent = "In Network";
+                document.getElementById('available-plans').textContent = "All Plans Available";
+                
+                // Add success styling
+                document.getElementById('network-status').classList.add('text-mint');
+                document.getElementById('available-plans').classList.add('text-mint');
+            }
+
+            // Initialize location check
+            getLocation();
+        </script>
+    </div>
+
+    <style>
+        .bg-mint { background-color: #4AC29A; }
+        .text-mint { color: #4AC29A; }
+        .hover\:bg-mint:hover { background-color: #4AC29A; }
+        .border-mint { border-color: #4AC29A; }
+        .bg-coral { background-color: #FF6F61; }
+        .text-coral { color: #FF6F61; }
+        .hover\:bg-coral:hover { background-color: #FF6F61; }
+    </style>
+
+    <script>
+    document.querySelector('button:contains("Edit Location")').addEventListener('click', function() {
+        const locationDiv = document.querySelector('.grid-cols-1.md\\:grid-cols-3');
+        const currentLocation = locationDiv.querySelector('.text-lg.font-medium').textContent;
+        
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentLocation;
+        input.className = 'text-lg font-medium text-gray-800 w-full border-b-2 border-mint focus:outline-none';
+        
+        locationDiv.querySelector('.text-lg.font-medium').replaceWith(input);
+        input.focus();
+        
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const newLocation = input.value;
+                const p = document.createElement('p');
+                p.className = 'text-lg font-medium text-gray-800';
+                p.textContent = newLocation;
+                input.replaceWith(p);
+            }
+        });
+    });
+    </script>
+</body>
+</html> 
