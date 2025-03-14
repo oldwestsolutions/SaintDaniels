@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Saint Daniels Healthcare Rewards</title>
+    <link rel="icon" type="image/jpeg" href="saint daniels logo.jpeg">
+    <style>
+        /* Variables */
+        :root {
+            --primary-green: #1a472a;
+            --secondary-green: #2a623d;
+            --light-green: #5d8b75;
+            --primary-tan: #d8c3a5;
+            --light-tan: #e8e4d9;
+            --gold: #c6a96d;
+            --dark-gold: #a08c5b;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--light-tan);
+            color: var(--primary-green);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-green);
+            color: var(--primary-tan);
+            padding: 15px 0;
+            border-bottom: 5px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            margin-left: 15px;
+        }
+
+        .nav-btn {
+            background-color: var(--gold);
+            color: var(--primary-green);
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Contact Section Styles */
+        .contact-section {
+            padding: 80px 0;
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .section-title {
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .contact-link {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 20px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .header-container {
+                flex-direction: row;
+                padding: 10px;
+            }
+
+            .logo h1 {
+                font-size: 1.6rem;
+                margin-left: 10px;
+            }
+
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+
+            .logo img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <div class="logo">
+                    <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 60px; height: 60px; object-fit: contain;">
+                    <h1>Saint Daniels</h1>
+                </div>
+            </a>
+            <nav>
+                <a href="/login" class="nav-btn">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="contact-section">
+        <div class="container contact-container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>We're here to help with any questions about your healthcare rewards journey.</p>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-method">
+                    <span class="contact-icon">📧</span>
+                    <a href="mailto:support@saintdaniels.com" class="contact-link">support@saintdaniels.com</a>
+                </div>
+                <div class="contact-method">
+                    <span class="contact-icon">📞</span>
+                    <a href="tel:+15551234567" class="contact-link">(555) 123-4567</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 
