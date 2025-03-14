@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Saint Daniels Healthcare Rewards</title>
+    <style>
+        /* Variables */
+        :root {
+            --primary-green: #1a472a;
+            --secondary-green: #2a623d;
+            --light-green: #5d8b75;
+            --primary-tan: #d8c3a5;
+            --light-tan: #e8e4d9;
+            --gold: #c6a96d;
+            --dark-gold: #a08c5b;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--light-tan);
+            color: var(--primary-green);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-green);
+            color: var(--primary-tan);
+            padding: 15px 0;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .custom-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            margin-left: 15px;
+            text-transform: uppercase;
+        }
+
+        /* Login Form Styles */
+        .login-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            border-top: 5px solid var(--gold);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--primary-tan);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--gold);
+            color: var(--primary-green);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--gold);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary-green);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-footer a {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .login-footer a:hover {
+            color: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--primary-tan);
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* Mobile Optimization Styles */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 25px;
+                margin: 15px;
+                width: calc(100% - 30px);
+                max-width: none;  /* Allow container to fill width on mobile */
+            }
+
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .logo {
+                margin-bottom: 5px;
+                justify-content: center;  /* Center logo on mobile */
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .custom-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .login-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .form-group {
+                margin-bottom: 15px;  /* Reduce spacing between form elements */
+            }
+
+            .form-group label {
+                font-size: 1rem;  /* Slightly smaller labels */
+            }
+
+            .form-group input {
+                padding: 15px;  /* Larger touch targets */
+                font-size: 16px; /* Prevent zoom on iOS */
+                -webkit-appearance: none;  /* Remove iOS default styling */
+                border-radius: 5px;
+            }
+
+            .btn {
+                padding: 15px;  /* Larger touch target */
+                font-size: 1rem;
+                margin-top: 10px;
+                -webkit-appearance: none;  /* Remove iOS default styling */
+            }
+
+            .login-section {
+                padding: 20px 10px;
+                min-height: calc(100vh - 140px); /* Account for header and footer */
+            }
+
+            /* Improve touch targets for links */
+            .login-footer {
+                margin-top: 25px;
+            }
+
+            .login-footer a {
+                padding: 8px 0;
+                display: inline-block;
+                min-width: 44px; /* Minimum touch target size */
+                min-height: 44px;
+                line-height: 44px;
+            }
+
+            /* Adjust footer for mobile */
+            footer {
+                padding: 15px 0;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Small phone optimization */
+        @media (max-width: 380px) {
+            .login-container {
+                padding: 20px 15px;
+                margin: 10px;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .custom-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .login-header p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Handle mobile keyboards */
+        @media (max-height: 600px) {
+            .login-section {
+                padding: 10px;
+                min-height: auto;
+            }
+
+            .login-container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .login-header {
+                margin-bottom: 15px;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+            }
+
+            .login-footer {
+                margin-top: 15px;
+            }
+        }
+
+        /* Landscape orientation */
+        @media (max-height: 450px) and (orientation: landscape) {
+            .login-section {
+                padding: 10px;
+            }
+
+            .login-container {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .login-header {
+                flex: 1;
+                text-align: left;
+                margin-bottom: 0;
+            }
+
+            form {
+                flex: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">
+            <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="custom-logo">
+            <h1>Saint Daniels</h1>
+        </a>
+    </div>
+</header>
+
+    <section class="login-section">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Enter your credentials to access your royal benefits</p>
+            </div>
+            <form action="#" method="POST" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Forgot your password? <a href="#">Reset it here</a></p>
+                <p>Don't have an account? <a href="#">Join the Kingdom</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Saint Daniels Healthcare Rewards. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html> 

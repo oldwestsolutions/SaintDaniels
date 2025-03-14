@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Saint Daniels Healthcare Rewards</title>
+    <!-- Add favicon -->
+    <link rel="icon" type="image/jpeg" href="saint daniels logo.jpeg">
+    <style>
+        /* Variables */
+        :root {
+            --primary-green: #1a472a;
+            --secondary-green: #2a623d;
+            --light-green: #5d8b75;
+            --primary-tan: #d8c3a5;
+            --light-tan: #e8e4d9;
+            --gold: #c6a96d;
+            --dark-gold: #a08c5b;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--light-tan);
+            color: var(--primary-green);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-green);
+            color: var(--primary-tan);
+            padding: 15px 0;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-shield {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-tan), var(--gold));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1rem;
+            border: 2px solid var(--gold);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background-color: transparent;
+            color: var(--primary-tan);
+            border: 2px solid var(--primary-tan);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--primary-tan);
+            color: var(--primary-green);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .account-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(26, 71, 42, 0.2);
+        }
+
+        .status-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-info h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            color: var(--primary-tan);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-badge {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--primary-tan);
+            padding: 8px 20px 8px 38px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .status-badge::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(198, 169, 109, 0.3);
+            animation: pulseRing 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        .status-badge::after {
+            content: '';
+            position: absolute;
+            left: 12px;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulseDot 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        .status-badge:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.7);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(0.7);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes pulseDot {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .points-display {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(198, 169, 109, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .points-display:hover {
+            transform: translateY(-5px);
+        }
+
+        .points-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--gold);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .points-number {
+            font-size: 3.5rem;
+            color: var(--primary-green);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            background: linear-gradient(135deg, var(--primary-green), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .points-label {
+            color: var(--secondary-green);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .points-progress {
+            background-color: var(--light-tan);
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--gold);
+            width: 75%;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        .next-reward {
+            font-size: 0.9rem;
+            color: var(--secondary-green);
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .recent-activity {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-tan);
+        }
+
+        .activity-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            animation: slideIn 0.3s ease-out;
+            transition: all 0.3s;
+            background: linear-gradient(to right, transparent 50%, var(--light-tan) 50%);
+            background-size: 200% 100%;
+            background-position: left bottom;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-tan);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:hover {
+            background-position: right bottom;
+            padding-left: 10px;
+        }
+
+        .activity-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--light-green);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            margin-right: 15px;
+        }
+
+        .activity-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .activity-points {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .activity-date {
+            color: var(--secondary-green);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .account-status {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .points-display {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .status-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .status-badge {
+                padding: 6px 18px 6px 35px;
+                font-size: 0.95rem;
+            }
+
+            .status-badge::before,
+            .status-badge::after {
+                left: 10px;
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        /* New Animation Styles */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Mobile Optimization Styles */
+        @media (max-width: 768px) {
+            /* Dashboard Layout */
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .dashboard-card {
+                padding: 20px;
+            }
+
+            /* Header Adjustments */
+            .header-container {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+
+            .user-menu {
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Navigation */
+            .dashboard-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: var(--primary-green);
+                padding: 10px;
+                z-index: 1000;
+            }
+
+            .dashboard-nav ul {
+                display: flex;
+                justify-content: space-around;
+                padding: 0;
+            }
+
+            .dashboard-nav li {
+                margin: 0;
+            }
+
+            /* Content Areas */
+            .main-content {
+                padding-bottom: 70px; /* Space for fixed bottom nav */
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                overflow-x: auto;
+            }
+
+            /* Form Elements */
+            input, select, textarea {
+                font-size: 16px; /* Prevent zoom on iOS */
+                padding: 12px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+        }
+
+        /* Small phone optimization */
+        @media (max-width: 380px) {
+            .dashboard-card {
+                padding: 15px;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .stats-number {
+                font-size: 1.5rem;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .custom-logo {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Landscape mode optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .dashboard-nav {
+                position: static;
+            }
+
+            .main-content {
+                padding-bottom: 20px;
+            }
+
+            .dashboard-card {
+                padding: 15px;
+            }
+        }
+
+        /* Enhanced Available Rewards Styles */
+        .available-offers {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin: 20px 0;
+            border: 1px solid rgba(198, 169, 109, 0.1);
+        }
+
+        .offers-header {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--light-tan);
+            display: flex;
+            align-items: center;
+        }
+
+        .offers-header h3 {
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .offers-header h3::before {
+            content: '🎁';
+            font-size: 1.2rem;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .offer-card {
+            background: linear-gradient(135deg, white, var(--light-tan));
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(198, 169, 109, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .offer-card:hover::before {
+            opacity: 1;
+        }
+
+        .offer-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .redeem-btn {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .redeem-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .account-status {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .status-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .offer-card {
+                padding: 15px;
+            }
+
+            .offer-icon {
+                font-size: 1.6rem;
+            }
+
+            .offers-header {
+                justify-content: center;
+            }
+        }
+
+        /* Small screen optimization */
+        @media (max-width: 480px) {
+            .account-status {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .status-info h2 {
+                font-size: 1.6rem;
+            }
+
+            .offers-grid {
+                gap: 12px;
+            }
+
+            .offer-card {
+                padding: 12px;
+            }
+        }
+
+        /* Add styles for the points display section */
+        .points-display-section {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .points-display {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(198, 169, 109, 0.2);
+            transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Mobile optimization updates */
+        @media (max-width: 768px) {
+            .offers-grid {
+                max-width: 100%;
+            }
+
+            .points-display {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <!-- Replace shield with image -->
+                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 40px; height: 40px; object-fit: contain;">
+                <h1>Saint Daniels</h1>
+            </a>
+            <a href="index.html" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="account-status">
+            <div class="status-info">
+                <h2>Welcome, Royal Member</h2>
+                <span class="status-badge">Account Active</span>
+            </div>
+            <div class="points-display">
+                <div class="points-icon">👑</div>
+                <div class="points-number">5,280</div>
+                <div class="points-label">Available Points</div>
+                <div class="points-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="next-reward">725 points until next reward</div>
+            </div>
+        </div>
+
+        <div class="available-offers">
+            <div class="offers-header">
+                <h3>Available Rewards</h3>
+            </div>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-icon">🎁</div>
+                    <div class="offer-content">
+                        <h4>$25 Amazon Gift Card</h4>
+                        <p class="offer-description">Redeem your points for an Amazon e-gift card</p>
+                        <div class="offer-meta">
+                            <span class="offer-points">2,500 points</span>
+                            <span class="offer-expiry">Expires in 30 days</span>
+                        </div>
+                        <button class="redeem-btn">Redeem Reward</button>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">💝</div>
+                    <div class="offer-content">
+                        <h4>Wellness Package</h4>
+                        <p class="offer-description">Premium health screening and consultation</p>
+                        <div class="offer-meta">
+                            <span class="offer-points">5,000 points</span>
+                            <span class="offer-expiry">Expires in 60 days</span>
+                        </div>
+                        <button class="redeem-btn">Redeem Reward</button>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">🏥</div>
+                    <div class="offer-content">
+                        <h4>Medical Co-pay Credit</h4>
+                        <p class="offer-description">$50 credit towards your next co-pay</p>
+                        <div class="offer-meta">
+                            <span class="offer-points">3,000 points</span>
+                            <span class="offer-expiry">Expires in 45 days</span>
+                        </div>
+                        <button class="redeem-btn">Redeem Reward</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-activity">
+            <div class="activity-header">
+                <h3>Points History</h3>
+            </div>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="activity-content">
+                        <div class="activity-icon">✓</div>
+                        <div>
+                            <span>Annual Check-up Completed</span>
+                            <div class="activity-date">March 15, 2024</div>
+                        </div>
+                    </div>
+                    <span class="activity-points">+500 points</span>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-content">
+                        <div class="activity-icon">🦷</div>
+                        <div>
+                            <span>Dental Cleaning Visit</span>
+                            <div class="activity-date">March 1, 2024</div>
+                        </div>
+                    </div>
+                    <span class="activity-points">+300 points</span>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-content">
+                        <div class="activity-icon">📺</div>
+                        <div>
+                            <span>Wellness Webinar Attendance</span>
+                            <div class="activity-date">February 28, 2024</div>
+                        </div>
+                    </div>
+                    <span class="activity-points">+150 points</span>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-content">
+                        <div class="activity-icon">🏃</div>
+                        <div>
+                            <span>Fitness Goal Achievement</span>
+                            <div class="activity-date">February 15, 2024</div>
+                        </div>
+                    </div>
+                    <span class="activity-points">+200 points</span>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-content">
+                        <div class="activity-icon">💉</div>
+                        <div>
+                            <span>Vaccination Update</span>
+                            <div class="activity-date">February 1, 2024</div>
+                        </div>
+                    </div>
+                    <span class="activity-points">+400 points</span>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+</body>
+</html> 
