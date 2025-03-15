@@ -77,81 +77,129 @@
         /* Help Center Styles */
         .help-section {
             padding: 80px 0;
+            background: linear-gradient(135deg, rgba(26, 71, 42, 0.05), rgba(198, 169, 109, 0.1));
         }
 
         .help-container {
             max-width: 1000px;
             margin: 0 auto;
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to bottom right, white, var(--light-tan));
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(198, 169, 109, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .help-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--gold), var(--primary-green));
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--primary-green);
             margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
-        /* FAQ Styles */
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--secondary-green);
+        }
+
         .faq-section {
             margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .faq-section h3, .documents-section h3 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 1px;
         }
 
         .faq-item {
             margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border: 1px solid rgba(198, 169, 109, 0.2);
+            border-radius: 12px;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .faq-question {
-            padding: 20px;
-            background-color: var(--light-tan);
+            padding: 25px;
+            background: linear-gradient(to right, var(--light-tan), white);
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            transition: background-color 0.3s;
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            transition: all 0.3s ease;
         }
 
         .faq-question:hover {
-            background-color: var(--primary-tan);
+            background: linear-gradient(to right, var(--primary-tan), var(--light-tan));
+            color: var(--secondary-green);
         }
 
         .faq-answer {
-            padding: 0 20px;
+            padding: 0 25px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            background: white;
+            color: var(--secondary-green);
+            line-height: 1.8;
         }
 
         .faq-item.active .faq-answer {
-            padding: 20px;
+            padding: 25px;
             max-height: 500px;
         }
 
-        /* Documents Styles */
+        .documents-section {
+            animation: fadeInUp 1s ease-out;
+        }
+
         .documents-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .document-card {
-            background-color: var(--light-tan);
-            padding: 20px;
-            border-radius: 8px;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
             text-decoration: none;
             color: var(--primary-green);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(198, 169, 109, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -160,41 +208,51 @@
 
         .document-card:hover {
             transform: translateY(-5px);
-            background-color: var(--primary-tan);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--gold);
         }
 
         .document-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
         }
 
-        /* Search Bar */
-        .search-bar {
-            margin-bottom: 40px;
-            display: flex;
-            gap: 10px;
+        .document-card:hover .document-icon {
+            transform: scale(1.1);
         }
 
-        .search-bar input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
+        .document-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-green);
         }
 
-        .search-btn {
-            background-color: var(--primary-green);
-            color: var(--light-tan);
-            padding: 12px 24px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .document-card p {
+            font-size: 0.9rem;
+            color: var(--secondary-green);
         }
 
-        .search-btn:hover {
-            background-color: var(--secondary-green);
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive Design */
@@ -220,14 +278,6 @@
             .logo img {
                 width: 45px;
                 height: 45px;
-            }
-
-            .search-bar {
-                flex-direction: column;
-            }
-
-            .search-btn {
-                width: 100%;
             }
         }
 
@@ -263,11 +313,6 @@
             <div class="section-title">
                 <h2>Help Center</h2>
                 <p>Find answers to common questions and access important documents.</p>
-            </div>
-
-            <div class="search-bar">
-                <input type="text" placeholder="Search for help topics...">
-                <button class="search-btn">Search</button>
             </div>
 
             <div class="faq-section">
@@ -331,11 +376,6 @@
                         <h4>Rewards Catalog</h4>
                         <p>Current rewards and redemption details</p>
                     </a>
-                    <a href="#" class="document-card">
-                        <div class="document-icon">📱</div>
-                        <h4>Mobile App Guide</h4>
-                        <p>How to use our mobile application</p>
-                    </a>
                 </div>
             </div>
         </div>
@@ -350,31 +390,6 @@
                 const toggle = question.querySelector('.toggle');
                 toggle.textContent = faqItem.classList.contains('active') ? '−' : '+';
             });
-        });
-
-        // Search Functionality
-        const searchInput = document.querySelector('.search-bar input');
-        const searchBtn = document.querySelector('.search-btn');
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        function performSearch() {
-            const searchTerm = searchInput.value.toLowerCase();
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question').textContent.toLowerCase();
-                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
-                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
         });
     </script>
 </body>

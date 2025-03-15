@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards Catalog - Saint Daniels Healthcare Rewards</title>
+    <link rel="icon" type="image/jpeg" href="saint daniels logo.jpeg">
+    <style>
+        /* Copy variables and global styles from index.html */
+        :root {
+            --primary-green: #1a472a;
+            --secondary-green: #2a623d;
+            --light-green: #5d8b75;
+            --primary-tan: #d8c3a5;
+            --light-tan: #e8e4d9;
+            --gold: #c6a96d;
+            --dark-gold: #a08c5b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--light-tan);
+            color: var(--primary-green);
+            line-height: 1.6;
+        }
+
+        /* Header Styles (copied from index.html) */
+        header {
+            background-color: var(--primary-green);
+            color: var(--primary-tan);
+            padding: 15px 0;
+            border-bottom: 5px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-btn {
+            background: linear-gradient(to right, var(--gold), var(--dark-gold));
+            color: var(--primary-green);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(198, 169, 109, 0.3);
+        }
+
+        /* Rewards Catalog Styles */
+        .catalog-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(26, 71, 42, 0.05), rgba(198, 169, 109, 0.1));
+        }
+
+        .catalog-container {
+            background: linear-gradient(to bottom right, white, var(--light-tan));
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(198, 169, 109, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .catalog-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--gold), var(--primary-green));
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .reward-card {
+            background-color: var(--light-tan);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .reward-img {
+            height: 200px;
+            background-color: var(--light-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .reward-content {
+            padding: 20px;
+        }
+
+        .reward-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+
+        .points {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--primary-green);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .reward-content p {
+            color: var(--secondary-green);
+            line-height: 1.8;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .catalog-container {
+                padding: 30px;
+                margin: 15px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .rewards-grid {
+                gap: 20px;
+            }
+        }
+
+        /* Add these new styles */
+        .catalog-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .category {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .category-description {
+            text-align: center;
+            color: var(--secondary-green);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .reward-card.saint-daniels {
+            border-top: 4px solid var(--gold);
+        }
+
+        .reward-card.carrier {
+            border-top: 4px solid var(--primary-green);
+        }
+
+        @media (max-width: 768px) {
+            .category {
+                padding: 20px;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .contact-info {
+            background: var(--light-tan);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        .contact-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .contact-info ul li {
+            color: var(--secondary-green);
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .contact-info ul li:before {
+            content: "•";
+            color: var(--gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 60px; height: 60px; object-fit: contain;">
+                <h1>Saint Daniels</h1>
+            </a>
+            <nav>
+                <a href="/login" class="nav-btn">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="catalog-section">
+        <div class="container catalog-container">
+            <div class="section-title">
+                <h2>Royal Rewards Catalog</h2>
+                <p>Explore our dual rewards program featuring exclusive Saint Daniels benefits and carrier-provided rewards</p>
+            </div>
+
+            <div class="catalog-categories">
+                <div class="category">
+                    <h3 class="category-title">Primary Healthcare Carrier Rewards</h3>
+                    <p class="category-description">Your healthcare insurance carrier offers their own rewards program with valuable benefits like gift cards, health devices, and medical bill credits. Contact your insurance agent to learn more about enrolling in your carrier's primary rewards program.</p>
+                    <div class="contact-info">
+                        <p>To access your carrier's rewards program:</p>
+                        <ul>
+                            <li>Contact your insurance agent</li>
+                            <li>Visit your carrier's member portal</li>
+                            <li>Call the number on your insurance card</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3 class="category-title">Saint Daniels Exclusive Rewards</h3>
+                    <p class="category-description">Unique rewards available only to Saint Daniels members, carefully curated for your royal healthcare journey.</p>
+                    <div class="rewards-grid">
+                        <div class="reward-card saint-daniels">
+                            <div class="reward-img" style="background: url('fitness.jpeg') center/cover no-repeat;"></div>
+                            <div class="reward-content">
+                                <h3>Premium Gym Access</h3>
+                                <div class="points">1500 Points</div>
+                                <p>One-year membership to premium fitness centers with personal training sessions.</p>
+                            </div>
+                        </div>
+                        <div class="reward-card saint-daniels">
+                            <div class="reward-img" style="background: url('Walgreens.jpeg') center/cover no-repeat;"></div>
+                            <div class="reward-content">
+                                <h3>$5 Walgreens Gift Card</h3>
+                                <div class="points">500 Points</div>
+                                <p>Redeem for a $5 Walgreens gift card valid at any Walgreens location. Perfect for health and wellness purchases.</p>
+                            </div>
+                        </div>
+                        <div class="reward-card saint-daniels">
+                            <div class="reward-img" style="background: url('wearable.jpeg') center/cover no-repeat;"></div>
+                            <div class="reward-content">
+                                <h3>Royal Health Tech</h3>
+                                <div class="points">2000 Points</div>
+                                <p>Premium health monitoring devices to keep track of your vital health metrics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 
