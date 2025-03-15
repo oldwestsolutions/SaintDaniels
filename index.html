@@ -61,6 +61,12 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        /* Add class for hidden header */
+        header.hidden {
+            transform: translateY(-100%);
         }
 
         .header-container {
@@ -206,6 +212,19 @@
             align-items: flex-start;
             text-align: left;
             padding: 40px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero h2 {
@@ -237,6 +256,19 @@
             text-decoration: none;
             display: inline-block;
             font-weight: bold;
+            opacity: 0;
+            animation: buttonRise 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes buttonRise {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero .btn:hover {
@@ -882,6 +914,85 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
+
+        /* Add these animation keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add this class for elements before animation */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Add this class when element becomes visible */
+        .animate-on-scroll.animated {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Update section styles to include animation classes */
+        .hero-content,
+        .features-grid,
+        .steps,
+        .rewards-grid,
+        .testimonial-card,
+        .cta {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-content.animated,
+        .features-grid.animated,
+        .steps.animated,
+        .rewards-grid.animated,
+        .testimonial-card.animated,
+        .cta.animated {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Add floating animation keyframes */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Update hero button styles */
+        .hero .btn {
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            background: var(--gold);
+            color: var(--primary-green);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .hero .btn:hover {
+            background: transparent;
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -909,6 +1020,40 @@
             // });
             
             // Keep the rest of the JavaScript...
+            const animatedElements = document.querySelectorAll('.hero-content, .features-grid, .steps, .rewards-grid, .testimonial-card, .cta');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            let lastScroll = 0;
+            const header = document.querySelector('header');
+            const scrollThreshold = 50; // Amount of scroll before hiding header
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+
+                if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+                    // Scrolling down
+                    header.classList.add('hidden');
+                } else {
+                    // Scrolling up
+                    header.classList.remove('hidden');
+                }
+
+                lastScroll = currentScroll;
+            });
         });
     </script>
     <!-- Header -->
