@@ -83,28 +83,48 @@
         }
 
         .login-container {
-            background-color: white;
+            background: linear-gradient(to bottom right, white, var(--light-tan));
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             width: 100%;
             max-width: 400px;
-            border-top: 5px solid var(--gold);
+            border: 1px solid rgba(198, 169, 109, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--gold), var(--primary-green));
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .login-header h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--primary-green);
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-header p {
+            color: var(--secondary-green);
+            font-size: 1.1rem;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group label {
@@ -112,57 +132,131 @@
             margin-bottom: 8px;
             color: var(--primary-green);
             font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             border: 2px solid var(--primary-tan);
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .form-group input:focus {
             outline: none;
             border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(198, 169, 109, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
         }
 
         .btn {
             display: block;
             width: 100%;
-            padding: 12px;
-            background-color: var(--gold);
+            padding: 15px;
+            background: linear-gradient(to right, var(--gold), var(--dark-gold));
             color: var(--primary-green);
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
-            background-color: transparent;
-            color: var(--primary-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(198, 169, 109, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
         }
 
         .login-footer {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(198, 169, 109, 0.2);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .login-footer p {
+            margin: 10px 0;
+            color: var(--secondary-green);
         }
 
         .login-footer a {
             color: var(--primary-green);
             text-decoration: none;
-            transition: color 0.3s;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .login-footer a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .login-footer a:hover::after {
+            width: 100%;
         }
 
         .login-footer a:hover {
             color: var(--gold);
+        }
+
+        /* Add animation for form elements */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header, .form-group, .btn {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .form-group:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .btn {
+            animation-delay: 0.2s;
+        }
+
+        .login-footer {
+            animation: fadeInUp 0.5s ease forwards;
+            animation-delay: 0.3s;
         }
 
         /* Footer */
@@ -330,6 +424,125 @@
                 flex: 2;
             }
         }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover:before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .join-btn {
+            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
+            color: var(--gold);
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            padding: 15px 30px;
+            border: 2px solid var(--gold);
+            text-transform: uppercase;
+        }
+
+        .join-btn:hover {
+            background: linear-gradient(to right, var(--secondary-green), var(--primary-green));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(198, 169, 109, 0.4);
+            color: var(--dark-gold);
+            border-color: var(--dark-gold);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 71, 42, 0.5);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: linear-gradient(to bottom right, white, var(--light-tan));
+            margin: 15% auto;
+            padding: 25px;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-green);
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .modal-body {
+            text-align: center;
+            color: var(--secondary-green);
+            font-size: 1.1rem;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            color: var(--primary-green);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--gold);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -346,23 +559,27 @@
         <div class="login-container">
             <div class="login-header">
                 <h2>Welcome Back</h2>
-                <p>Enter your credentials to access your royal benefits</p>
+                <p style="font-size: 1.4rem; font-weight: bold; color: var(--primary-green);">Royal Member</p>
             </div>
             <form action="#" method="POST" id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="Enter your email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" required
+                           placeholder="Enter your password">
                 </div>
                 <button type="submit" class="btn">Sign In</button>
             </form>
             
             <div class="login-footer">
-                <p>Forgot your password? <a href="#">Reset it here</a></p>
-                <p>Don't have an account? <a href="#">Join the Kingdom</a></p>
+                <div class="footer-links">
+                    <p><a href="#">Forgot password</a></p>
+                    <p><a href="/signup">Contact support</a></p>
+                </div>
             </div>
         </div>
     </section>
@@ -373,10 +590,50 @@
         </div>
     </footer>
 
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h3>Access Denied</h3>
+            </div>
+            <div class="modal-body">
+                <p>Invalid credentials. Please contact your administrator for access.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         function handleLogin(event) {
             event.preventDefault();
-            window.location.href = 'dashboard.html';
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Basic validation
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+
+            // Show error modal
+            const modal = document.getElementById('errorModal');
+            modal.style.display = "block";
+            
+            // Clear the form
+            document.getElementById('loginForm').reset();
+        }
+
+        // Close modal when clicking the X
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('errorModal').style.display = "none";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('errorModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 </body>
