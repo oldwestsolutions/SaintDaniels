@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment - Saint Daniels Healthcare Rewards</title>
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <style>
+        /* Variables */
+        :root {
+            --primary-green: #1a472a;
+            --secondary-green: #2a623d;
+            --light-green: #5d8b75;
+            --primary-tan: #d8c3a5;
+            --light-tan: #e8e4d9;
+            --gold: #c6a96d;
+            --dark-gold: #a08c5b;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--light-tan);
+            color: var(--primary-green);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Form Styles */
+        .enrollment-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--gold);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--primary-tan);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(198, 169, 109, 0.2);
+        }
+
+        .signature-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--light-tan);
+            border-radius: 8px;
+        }
+
+        .submit-btn {
+            background: var(--gold);
+            color: var(--primary-green);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-green);
+            color: var(--primary-tan);
+            padding: 15px 0;
+            border-bottom: 5px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .custom-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            margin-left: 15px;
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            background: var(--primary-tan);
+            color: var(--primary-green);
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Insurance Selection Styles */
+        .insurance-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .insurance-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insurance-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Form Header Styles */
+        .form-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .form-header .form-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 20px;
+        }
+
+        .form-header .header-text {
+            flex: 1;
+        }
+
+        .form-header h1 {
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .form-header h2 {
+            color: var(--secondary-green);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: var(--secondary-green);
+            font-style: italic;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="custom-logo">
+                <h1>Saint Daniels</h1>
+            </a>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DHu00000H9l1E" 
+              method="POST" 
+              class="enrollment-form"
+              id="enrollmentForm">
+            
+            <input type="hidden" name='captcha_settings' value='{"keyname":"SaintDaniels","fallback":"false","orgId":"00DHu00000H9l1E","ts":""}'>
+            <input type="hidden" name="oid" value="00DHu00000H9l1E">
+            <input type="hidden" name="retURL" value="https://www.saintdaniels.com/signup">
+
+            <!-- Form Header with Logo -->
+            <div class="form-header">
+                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="form-logo">
+                <div class="header-text">
+                    <h1>Saint Daniels Healthcare</h1>
+                    <h2>Enrollment Application</h2>
+                    <p>Please complete all required fields marked with an asterisk (*)</p>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-section">
+                <h2>Enrollment Application</h2>
+                <div class="form-group">
+                    <label for="first_name">First Name *</label>
+                    <input id="first_name" name="first_name" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name *</label>
+                    <input id="last_name" name="last_name" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone *</label>
+                    <input id="phone" name="phone" type="tel" required>
+                </div>
+            </div>
+
+            <!-- Address Information -->
+            <div class="form-section">
+                <h2>Address Information</h2>
+                <div class="form-group">
+                    <label for="street">Street Address *</label>
+                    <textarea id="street" name="street" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="city">City *</label>
+                    <input id="city" name="city" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State *</label>
+                    <input id="state" name="state" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="zip">ZIP Code *</label>
+                    <input id="zip" name="zip" type="text" required>
+                </div>
+            </div>
+
+            <!-- Insurance Information -->
+            <div class="form-section">
+                <h2>Insurance Information</h2>
+                <p>Please select all that apply:</p>
+                <div class="insurance-options">
+                    <div class="insurance-option">
+                        <input type="checkbox" id="medicaid" name="insurance_type" value="Medicaid">
+                        <label for="medicaid">Medicaid</label>
+                    </div>
+                    <div class="insurance-option">
+                        <input type="checkbox" id="medicare" name="insurance_type" value="Medicare">
+                        <label for="medicare">Medicare</label>
+                    </div>
+                    <div class="insurance-option">
+                        <input type="checkbox" id="tricare" name="insurance_type" value="Tricare">
+                        <label for="tricare">Tricare</label>
+                    </div>
+                    <div class="insurance-option">
+                        <input type="checkbox" id="employer" name="insurance_type" value="Employer">
+                        <label for="employer">Employer Insurance</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employment Information -->
+            <div class="form-section">
+                <h2>Employment Information</h2>
+                <div class="form-group">
+                    <label for="occupation">Occupation *</label>
+                    <input id="occupation" name="occupation" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="annual_income">Expected Annual Income for 2024 *</label>
+                    <input id="annual_income" name="annual_income" type="text" 
+                           placeholder="$" required
+                           pattern="^\$?[0-9,]+(\.[0-9]{2})?$"
+                           title="Please enter a valid amount">
+                </div>
+            </div>
+
+            <!-- E-Signature Section -->
+            <div class="signature-section">
+                <h2>Electronic Signature</h2>
+                <p>By typing your full name below, you agree that this constitutes a legal electronic signature.</p>
+                <div class="form-group">
+                    <label for="signature">Full Name (E-Signature) *</label>
+                    <input id="signature" name="signature" type="text" required>
+                </div>
+                <p class="signature-date">Date: <span id="currentDate"></span></p>
+            </div>
+
+            <!-- reCAPTCHA -->
+            <div class="g-recaptcha" data-sitekey="6LechvcqAAAAADeYlyb1rz9F6PNYcHdduH5B3Twk"></div>
+
+            <button type="submit" class="submit-btn">Submit Enrollment</button>
+        </form>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
+
+        // Timestamp for captcha
+        function timestamp() {
+            var response = document.getElementById("g-recaptcha-response");
+            if (response == null || response.value.trim() == "") {
+                var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
+                elems["ts"] = JSON.stringify(new Date().getTime());
+                document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+            }
+        }
+        setInterval(timestamp, 500);
+
+        // Form submission handler
+        document.getElementById('enrollmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(this);
+            const signature = document.getElementById('signature').value;
+
+            try {
+                // First, send to Salesforce
+                await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Then, send signature to DocuSign (you'll need to implement this endpoint)
+                await fetch('/api/docusign/sign', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        signature: signature,
+                        name: `${formData.get('first_name')} ${formData.get('last_name')}`,
+                        email: formData.get('email')
+                    })
+                });
+
+                alert('Enrollment submitted successfully!');
+                window.location.href = formData.get('retURL');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting your enrollment. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html> 
