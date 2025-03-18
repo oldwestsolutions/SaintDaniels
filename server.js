@@ -8,6 +8,11 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.static(__dirname));
 
+// Root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Clean URL routes
 app.get('/enrollment', (req, res) => {
     res.sendFile(path.join(__dirname, 'enrollment.html'));
@@ -17,22 +22,13 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dashboard.html'));
-});
-
 app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, 'signup.html'));
 });
 
-// Update all redirects to use clean URLs
-app.get('*', (req, res, next) => {
-    if (req.path.endsWith('.html')) {
-        const cleanUrl = req.path.slice(0, -5); // Remove .html
-        res.redirect(301, cleanUrl);
-    } else {
-        next();
-    }
+// Redirect any .html requests to clean URLs
+app.get('*.html', (req, res) => {
+    res.redirect(301, req.path.replace('.html', ''));
 });
 
 // Dropbox configuration
