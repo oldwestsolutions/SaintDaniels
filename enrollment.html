@@ -1749,51 +1749,138 @@
         }
         setInterval(timestamp, 500);
 
-        // Form submission handler
+        // Add this function after your existing JavaScript code
+        function convertFormDataToCSV(formData) {
+            // Define CSV headers based on your form fields
+            const headers = [
+                'First Name',
+                'Last Name',
+                'Email',
+                'Phone',
+                'Date of Birth',
+                'SSN',
+                'Street Address',
+                'City',
+                'State',
+                'ZIP',
+                'Mailing Address',
+                'Mailing City',
+                'Mailing State',
+                'Mailing ZIP',
+                'Tax Status',
+                'Tax Dependent',
+                'Married',
+                'Spouse Name',
+                'Spouse DOB',
+                'Dependents',
+                'Birth State',
+                'Birth Country',
+                'US Citizen',
+                'Occupation',
+                'Annual Income',
+                'Insurance Carrier',
+                'Premium Option',
+                'Deductible',
+                'Current Coverage',
+                'Signature',
+                'Submission Date'
+            ];
+
+            // Create array for the values
+            const values = [
+                formData.get('first_name'),
+                formData.get('last_name'),
+                formData.get('email'),
+                formData.get('phone'),
+                formData.get('dob'),
+                formData.get('ssn'),
+                formData.get('street_address'),
+                formData.get('city'),
+                formData.get('state'),
+                formData.get('zip'),
+                formData.get('mailing_street'),
+                formData.get('mailing_city'),
+                formData.get('mailing_state'),
+                formData.get('mailing_zip'),
+                formData.get('tax_status'),
+                formData.get('tax_dependent'),
+                formData.get('married'),
+                formData.get('spouse_name'),
+                formData.get('spouse_dob'),
+                Array.from(formData.getAll('dependent_name[]')).join('; '),
+                formData.get('birth_state'),
+                formData.get('birth_country'),
+                formData.get('us_citizen'),
+                formData.get('occupation'),
+                formData.get('income'),
+                formData.get('insurance_carrier'),
+                formData.get('premium_option'),
+                formData.get('deductible'),
+                Array.from(formData.getAll('current_coverage')).join('; '),
+                formData.get('signature'),
+                new Date().toISOString()
+            ];
+
+            // Escape any commas in the values and wrap in quotes
+            const escapedValues = values.map(value => {
+                if (value === null || value === undefined) return '""';
+                return `"${String(value).replace(/"/g, '""')}"`;
+            });
+
+            // Create CSV content
+            const csvContent = [
+                headers.join(','),
+                escapedValues.join(',')
+            ].join('\n');
+
+            return csvContent;
+        }
+
+        // Update your form submission handler
         document.getElementById('enrollmentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(this);
-            const signature = document.getElementById('signature').value;
-
+            
             try {
-                // First, send to Salesforce
-                await fetch(this.action, {
-                    method: 'POST',
-                    body: formData
-                });
+                // First check if we're authenticated with Dropbox
+                const authResponse = await fetch('/auth/status');
+                const authStatus = await authResponse.json();
+                
+                if (!authStatus.authenticated) {
+                    window.open('/auth/dropbox', 'DropboxAuth', 'width=800,height=600');
+                    alert('Please authenticate with Dropbox first. After authenticating, submit the form again.');
+                    return;
+                }
 
-                // Then, send signature to DocuSign
-                await fetch('/api/docusign/sign', {
+                // Get form data and create CSV
+                const formData = new FormData(this);
+                const csvContent = convertFormDataToCSV(formData);
+                
+                // Create filename with timestamp
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const filename = `enrollment_${timestamp}.csv`;
+
+                // Send to backend
+                const response = await fetch('/api/upload-to-dropbox', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        signature: signature,
-                        name: `${formData.get('first_name')} ${formData.get('last_name')}`,
-                        email: formData.get('email')
+                        filename: filename,
+                        content: csvContent
                     })
                 });
 
-                // Hide all steps
-                document.querySelectorAll('.form-step').forEach(step => {
-                    step.classList.remove('active');
-                });
+                if (!response.ok) {
+                    throw new Error('Failed to upload to Dropbox');
+                }
 
-                // Show thank you page
-                const thankYouPage = document.getElementById('thank_you_page');
-                thankYouPage.style.display = 'block';
-                thankYouPage.classList.add('active');
-
-                // Optional: Scroll to top
-                window.scrollTo(0, 0);
-
-                // Optional: Redirect to homepage after 5 seconds
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 5000);
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Redirect to signup page
+                    window.location.href = '/signup.html';
+                }
 
             } catch (error) {
                 console.error('Error:', error);
