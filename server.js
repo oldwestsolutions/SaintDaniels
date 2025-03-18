@@ -36,11 +36,11 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Dropbox configuration with your keys
+// Dropbox configuration
 const DROPBOX_CONFIG = {
-    clientId: '55yt9dc51h22wwn',      // Your App key
-    clientSecret: 'bnszbd6yizzw5zg',   // Your App secret
-    accessToken: null  // This will be set after authentication
+    clientId: '55yt9dc51h22wwn',
+    clientSecret: 'bnszbd6yizzw5zg',
+    redirectUri: 'https://saintdaniels.com/auth/callback'
 };
 
 // Initialize Dropbox client
@@ -49,32 +49,72 @@ const dbx = new Dropbox({
     clientSecret: DROPBOX_CONFIG.clientSecret
 });
 
+// OAuth endpoints
+app.get('/auth/dropbox', (req, res) => {
+    const authUrl = `https://www.dropbox.com/oauth2/authorize?client_id=${DROPBOX_CONFIG.clientId}&response_type=code&redirect_uri=${encodeURIComponent(DROPBOX_CONFIG.redirectUri)}`;
+    res.redirect(authUrl);
+});
+
+app.get('/auth/callback', async (req, res) => {
+    const { code } = req.query;
+    
+    try {
+        const response = await fetch('https://api.dropboxapi.com/oauth2/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                code,
+                grant_type: 'authorization_code',
+                client_id: DROPBOX_CONFIG.clientId,
+                client_secret: DROPBOX_CONFIG.clientSecret,
+                redirect_uri: DROPBOX_CONFIG.redirectUri,
+            }),
+        });
+
+        const data = await response.json();
+        req.session.dropboxToken = data.access_token;
+        
+        // Send success message to parent window
+        res.send(`
+            <script>
+                window.opener.postMessage({ type: 'dropbox-auth-success' }, '*');
+            </script>
+        `);
+    } catch (error) {
+        console.error('OAuth error:', error);
+        res.redirect('/auth/error');
+    }
+});
+
+// Check auth status
+app.get('/auth/status', (req, res) => {
+    res.json({
+        authenticated: !!req.session.dropboxToken
+    });
+});
+
 // Upload endpoint
 app.post('/api/upload-to-dropbox', async (req, res) => {
+    if (!req.session.dropboxToken) {
+        return res.status(401).json({ error: 'Not authenticated with Dropbox' });
+    }
+
     try {
         const { filename, content } = req.body;
         
-        if (!content) {
-            throw new Error('No content provided');
-        }
-
-        // Use the configured Dropbox client
-        const dropboxClient = new Dropbox({ 
-            clientId: DROPBOX_CONFIG.clientId,
-            clientSecret: DROPBOX_CONFIG.clientSecret,
-            accessToken: req.session.dropboxToken || DROPBOX_CONFIG.accessToken
+        const dbx = new Dropbox({ 
+            accessToken: req.session.dropboxToken 
         });
 
         const contentBuffer = Buffer.from(content, 'utf-8');
-        console.log('Attempting to upload:', filename);
-
-        const response = await dropboxClient.filesUpload({
+        const response = await dbx.filesUpload({
             path: `/enrollments/${filename}`,
             contents: contentBuffer,
             mode: 'add'
         });
 
-        console.log('Upload successful:', response);
         res.json({ success: true, response });
     } catch (error) {
         console.error('Dropbox upload error:', error);
@@ -83,12 +123,6 @@ app.post('/api/upload-to-dropbox', async (req, res) => {
             details: error.message 
         });
     }
-});
-
-// Add authentication endpoint
-app.get('/auth/dropbox', (req, res) => {
-    const authUrl = `https://www.dropbox.com/oauth2/authorize?client_id=${DROPBOX_CONFIG.clientId}&response_type=token&redirect_uri=${encodeURIComponent('http://localhost:3000/auth/callback')}`;
-    res.redirect(authUrl);
 });
 
 // Serve thank you page
@@ -107,14 +141,6 @@ app.get('/auth/success', (req, res) => {
 
 app.get('/auth/error', (req, res) => {
     res.send('Failed to authenticate with Dropbox.');
-});
-
-// Test route to check if token exists
-app.get('/auth/status', (req, res) => {
-    res.json({
-        authenticated: !!req.session.dropboxToken,
-        token: req.session.dropboxToken
-    });
 });
 
 // Add proper error handling middleware
