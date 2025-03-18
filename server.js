@@ -28,8 +28,8 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
-// Enable JSON parsing and session handling
-app.use(express.json());
+// Enable JSON parsing with increased limit
+app.use(express.json({ limit: '50mb' }));
 app.use(session({
     secret: 'your-session-secret',
     resave: false,
@@ -40,13 +40,12 @@ app.use(session({
 const DROPBOX_CONFIG = {
     clientId: '55yt9dc51h22wwn',
     clientSecret: 'bnszbd6yizzw5zg',
-    redirectUri: 'https://saintdaniels.com/auth/callback'
+    accessToken: 'sl.BqGXXXX'  // Replace with your access token
 };
 
 // Initialize Dropbox client
 const dbx = new Dropbox({
-    clientId: DROPBOX_CONFIG.clientId,
-    clientSecret: DROPBOX_CONFIG.clientSecret
+    accessToken: DROPBOX_CONFIG.accessToken
 });
 
 // OAuth endpoints
@@ -97,25 +96,33 @@ app.get('/auth/status', (req, res) => {
 
 // Upload endpoint
 app.post('/api/upload-to-dropbox', async (req, res) => {
-    if (!req.session.dropboxToken) {
-        return res.status(401).json({ error: 'Not authenticated with Dropbox' });
-    }
-
     try {
         const { filename, content } = req.body;
         
+        if (!content) {
+            throw new Error('No content provided');
+        }
+
+        // Initialize Dropbox client
         const dbx = new Dropbox({ 
-            accessToken: req.session.dropboxToken 
+            accessToken: DROPBOX_CONFIG.accessToken
         });
 
-        const contentBuffer = Buffer.from(content, 'utf-8');
+        // Convert content to CSV format
+        const jsonContent = JSON.parse(content);
+        const csvRows = Object.entries(jsonContent).map(([key, value]) => `${key},${value}`);
+        const csvContent = csvRows.join('\n');
+        
+        // Upload to Dropbox
+        console.log('Attempting to upload:', filename);
         const response = await dbx.filesUpload({
             path: `/enrollments/${filename}`,
-            contents: contentBuffer,
+            contents: Buffer.from(csvContent, 'utf-8'),
             mode: 'add'
         });
 
-        res.json({ success: true, response });
+        console.log('Upload successful:', response);
+        res.json({ success: true });
     } catch (error) {
         console.error('Dropbox upload error:', error);
         res.status(500).json({ 

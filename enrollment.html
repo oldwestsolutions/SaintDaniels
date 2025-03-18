@@ -1606,9 +1606,8 @@
                         <div id="recaptcha-error" class="error-message" style="display: none;"></div>
                         <div class="g-recaptcha" 
                             data-sitekey="6LfPyEApAAAAAO_8BJ_KqTZzHvPl_vHXjPuYTQGE"
-                            data-callback="onRecaptchaComplete"
-                            data-expired-callback="onRecaptchaExpired"
-                            data-error-callback="onRecaptchaError"
+                            data-callback="enableSubmitButton"
+                            data-expired-callback="disableSubmitButton"
                             data-size="normal">
                         </div>
                     </div>
@@ -2385,6 +2384,92 @@
             } else {
                 errorElement.style.display = 'none';
                 this.setCustomValidity('');
+            }
+        });
+
+        // Enable/disable submit button based on reCAPTCHA
+        function enableSubmitButton() {
+            const submitButton = document.getElementById('submit-application');
+            submitButton.disabled = false;
+            submitButton.style.opacity = '1';
+            document.getElementById('recaptcha-error').style.display = 'none';
+        }
+
+        function disableSubmitButton() {
+            const submitButton = document.getElementById('submit-application');
+            submitButton.disabled = true;
+            submitButton.style.opacity = '0.5';
+            document.getElementById('recaptcha-error').textContent = 'Please verify you are human';
+            document.getElementById('recaptcha-error').style.display = 'block';
+        }
+
+        // Initially disable submit button
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitButton = document.getElementById('submit-application');
+            submitButton.disabled = true;
+            submitButton.style.opacity = '0.5';
+        });
+
+        // Form submission handler
+        document.getElementById('enrollmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.getElementById('submit-application');
+            const originalText = submitButton.textContent;
+            
+            try {
+                // Verify reCAPTCHA
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    alert('Please complete the reCAPTCHA verification');
+                    return;
+                }
+
+                // Show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+
+                // Get form data
+                const formData = new FormData(this);
+                
+                // Create CSV content
+                const csvContent = Object.fromEntries(formData.entries());
+                
+                // Generate filename
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const filename = `enrollment_${formData.get('first_name')}_${formData.get('last_name')}_${timestamp}.csv`;
+
+                // Send to Dropbox
+                const response = await fetch('/api/upload-to-dropbox', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        filename: filename,
+                        content: JSON.stringify(csvContent)
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit enrollment');
+                }
+
+                // Success! Show message and redirect
+                alert('Enrollment submitted successfully! Redirecting to signup page...');
+                window.location.href = '/signup.html';
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error submitting your enrollment. Please try again.');
+                
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+                
+                // Reset reCAPTCHA
+                grecaptcha.reset();
+                disableSubmitButton();
             }
         });
     </script>
