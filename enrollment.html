@@ -1949,7 +1949,7 @@
                     <h1>Welcome to the Kingdom</h1>
                     <div class="welcome-content">
                         <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="welcome-logo">
-                        <h2>Thank you for your interest in Saint Daniel's Healthcare Rewards</h2>
+                        <h2>Thank you for your interest in Saint Daniels Healthcare Rewards</h2>
                         <p>You're about to begin your journey towards royal healthcare benefits. Before proceeding with your enrollment, we'll guide you through important information about our program.</p>
                         <button class="next-btn" onclick="showStep('disclaimer-step')">Begin Application</button>
                     </div>
@@ -3508,9 +3508,14 @@
         function validateAndProceed() {
             const consent = document.getElementById('disclaimer-consent');
             if (consent.checked) {
+                // Show the enrollment form step
                 showStep('enrollment-form-step');
-                // Scroll to top of the form
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Focus on the first name input if it exists
+                const firstNameInput = document.querySelector('input[name="first_name"]');
+                if (firstNameInput) {
+                    firstNameInput.focus();
+                }
             } else {
                 alert('Please read and accept the disclaimer to proceed.');
             }
