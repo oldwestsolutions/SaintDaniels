@@ -1,10 +1,6 @@
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' })
-  }
-
+export async function POST(request) {
   try {
-    const { email, password } = req.body
+    const { email, password } = await request.json()
 
     // Add your authentication logic here
     // Example:
@@ -12,16 +8,16 @@ export default async function handler(req, res) {
     
     // For demo purposes:
     if (email && password) {
-      res.status(200).json({ 
+      return Response.json({ 
         message: 'Login successful',
         token: 'demo-token',
         user: { email }
       })
     } else {
-      res.status(401).json({ message: 'Invalid credentials' })
+      return Response.json({ message: 'Invalid credentials' }, { status: 401 })
     }
   } catch (error) {
     console.error('Login error:', error)
-    res.status(500).json({ message: 'Internal server error' })
+    return Response.json({ message: 'Internal server error' }, { status: 500 })
   }
 } 
