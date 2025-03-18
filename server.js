@@ -36,79 +36,59 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Dropbox configuration
-const DROPBOX_APP_KEY = '55yt9dc51h22wwn';
-const DROPBOX_APP_SECRET = 'bnszbd6yizzw5zg';
-const REDIRECT_URI = 'https://saintdaniels.com/auth/callback';
-const SIGNUP_URI = 'https://saintdaniels.com/signup.html';
+// Dropbox configuration with your keys
+const DROPBOX_CONFIG = {
+    clientId: '55yt9dc51h22wwn',      // Your App key
+    clientSecret: 'bnszbd6yizzw5zg',   // Your App secret
+    accessToken: null  // This will be set after authentication
+};
 
-// OAuth endpoints
-app.get('/auth/dropbox', (req, res) => {
-    const authUrl = `https://www.dropbox.com/oauth2/authorize?client_id=${DROPBOX_APP_KEY}&response_type=code&redirect_uri=${REDIRECT_URI}`;
-    res.redirect(authUrl);
+// Initialize Dropbox client
+const dbx = new Dropbox({
+    clientId: DROPBOX_CONFIG.clientId,
+    clientSecret: DROPBOX_CONFIG.clientSecret
 });
 
-app.get('/auth/callback', async (req, res) => {
-    const { code } = req.query;
-    
-    try {
-        const response = await fetch('https://api.dropboxapi.com/oauth2/token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                code,
-                grant_type: 'authorization_code',
-                client_id: DROPBOX_APP_KEY,
-                client_secret: DROPBOX_APP_SECRET,
-                redirect_uri: REDIRECT_URI,
-            }),
-        });
-
-        const data = await response.json();
-        req.session.dropboxToken = data.access_token;
-        res.redirect('/auth/success');
-    } catch (error) {
-        console.error('OAuth error:', error);
-        res.redirect('/auth/error');
-    }
-});
-
-// Add this near the top of your file
-app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-    next();
-});
-
-// File upload endpoint with redirect to signup page
+// Upload endpoint
 app.post('/api/upload-to-dropbox', async (req, res) => {
-    if (!req.session.dropboxToken) {
-        return res.status(401).json({ error: 'Not authenticated with Dropbox' });
-    }
-
-    const dbx = new Dropbox({ accessToken: req.session.dropboxToken });
-
     try {
         const { filename, content } = req.body;
-        const contentBuffer = Buffer.from(content, 'utf-8');
+        
+        if (!content) {
+            throw new Error('No content provided');
+        }
 
-        await dbx.filesUpload({
+        // Use the configured Dropbox client
+        const dropboxClient = new Dropbox({ 
+            clientId: DROPBOX_CONFIG.clientId,
+            clientSecret: DROPBOX_CONFIG.clientSecret,
+            accessToken: req.session.dropboxToken || DROPBOX_CONFIG.accessToken
+        });
+
+        const contentBuffer = Buffer.from(content, 'utf-8');
+        console.log('Attempting to upload:', filename);
+
+        const response = await dropboxClient.filesUpload({
             path: `/enrollments/${filename}`,
             contents: contentBuffer,
             mode: 'add'
         });
 
-        // Send success response with both redirects
-        res.json({ 
-            success: true, 
-            redirectUrl: SIGNUP_URI
-        });
-
+        console.log('Upload successful:', response);
+        res.json({ success: true, response });
     } catch (error) {
         console.error('Dropbox upload error:', error);
-        res.status(500).json({ error: 'Failed to upload to Dropbox', details: error.message });
+        res.status(500).json({ 
+            error: 'Failed to upload to Dropbox', 
+            details: error.message 
+        });
     }
+});
+
+// Add authentication endpoint
+app.get('/auth/dropbox', (req, res) => {
+    const authUrl = `https://www.dropbox.com/oauth2/authorize?client_id=${DROPBOX_CONFIG.clientId}&response_type=token&redirect_uri=${encodeURIComponent('http://localhost:3000/auth/callback')}`;
+    res.redirect(authUrl);
 });
 
 // Serve thank you page
@@ -150,5 +130,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`Please visit http://localhost:${PORT}/auth/dropbox to authenticate with Dropbox`);
+    console.log('Dropbox API configured with provided keys');
 }); 

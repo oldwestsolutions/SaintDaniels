@@ -954,6 +954,37 @@
             margin: 10px 0;
             font-size: 1.1em;
         }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        #submit-application {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        #submit-application:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .g-recaptcha {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .g-recaptcha {
+                transform: scale(0.9);
+                transform-origin: center;
+                margin: 10px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1571,7 +1602,16 @@
                     </div>
                     
                     <!-- reCAPTCHA -->
-                    <div class="g-recaptcha" data-sitekey="6LechvcqAAAAADeYlyb1rz9F6PNYcHdduH5B3Twk"></div>
+                    <div class="form-group">
+                        <div id="recaptcha-error" class="error-message" style="display: none;"></div>
+                        <div class="g-recaptcha" 
+                            data-sitekey="YOUR_SITE_KEY"
+                            data-callback="onRecaptchaComplete"
+                            data-expired-callback="onRecaptchaExpired"
+                            data-error-callback="onRecaptchaError"
+                            data-size="normal">
+                        </div>
+                    </div>
                     
                     <div class="form-navigation">
                         <button type="button" class="nav-btn prev" onclick="prevStep(8)">Previous</button>
@@ -1836,30 +1876,42 @@
             return csvContent;
         }
 
-        // Update your form submission handler
+        // Update the form submission handler with debug logging
         document.getElementById('enrollmentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            console.log('Form submission started');
             
+            // Show loading state
+            const submitButton = document.getElementById('submit-application');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
+
             try {
-                // First check if we're authenticated with Dropbox
-                const authResponse = await fetch('/auth/status');
-                const authStatus = await authResponse.json();
+                // Validate reCAPTCHA
+                const recaptchaResponse = grecaptcha.getResponse();
+                console.log('reCAPTCHA response:', recaptchaResponse ? 'valid' : 'invalid');
                 
-                if (!authStatus.authenticated) {
-                    window.open('/auth/dropbox', 'DropboxAuth', 'width=800,height=600');
-                    alert('Please authenticate with Dropbox first. After authenticating, submit the form again.');
-                    return;
+                if (!recaptchaResponse) {
+                    throw new Error('Please complete the reCAPTCHA');
                 }
 
                 // Get form data and create CSV
                 const formData = new FormData(this);
-                const csvContent = convertFormDataToCSV(formData);
+                console.log('Form data collected');
                 
-                // Create filename with timestamp
+                // Log form data (excluding sensitive info)
+                console.log('Form fields:', Array.from(formData.keys()));
+                
+                const csvContent = convertFormDataToCSV(formData);
+                console.log('CSV content created');
+                
+                // Create filename
                 const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-                const filename = `enrollment_${timestamp}.csv`;
+                const filename = `enrollment_${formData.get('first_name')}_${formData.get('last_name')}_${timestamp}.csv`;
+                console.log('Attempting to upload:', filename);
 
-                // Send to backend
+                // Upload to Dropbox
                 const response = await fetch('/api/upload-to-dropbox', {
                     method: 'POST',
                     headers: {
@@ -1871,20 +1923,33 @@
                     })
                 });
 
+                console.log('Server response status:', response.status);
+                
                 if (!response.ok) {
-                    throw new Error('Failed to upload to Dropbox');
+                    const errorData = await response.json();
+                    console.error('Server error details:', errorData);
+                    throw new Error(`Upload failed: ${errorData.error || 'Unknown error'}`);
                 }
 
                 const result = await response.json();
+                console.log('Upload successful:', result);
+
+                // Show success message before redirect
+                alert('Enrollment submitted successfully! Redirecting to signup page...');
                 
-                if (result.success) {
-                    // Redirect to signup page
-                    window.location.href = '/signup.html';
-                }
+                // Redirect to signup page
+                window.location.href = '/signup.html';
 
             } catch (error) {
-                console.error('Error:', error);
-                alert('There was an error submitting your enrollment. Please try again.');
+                console.error('Submission error:', error);
+                alert(error.message || 'There was an error submitting your enrollment. Please try again.');
+                
+                // Reset button state
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+                
+                // Reset reCAPTCHA
+                grecaptcha.reset();
             }
         });
 
@@ -2327,6 +2392,157 @@
     <!-- Add Google Places API -->
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete">
+    </script>
+
+    <!-- Add this just before the closing </body> tag -->
+    <script>
+    // Form submission handler with Dropbox integration
+    document.getElementById('enrollmentForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        const submitButton = document.getElementById('submit-application');
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = 'Submitting...';
+        submitButton.disabled = true;
+
+        try {
+            // Validate reCAPTCHA
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                throw new Error('Please complete the reCAPTCHA');
+            }
+
+            // Get form data and create CSV
+            const formData = new FormData(this);
+            const csvContent = convertFormDataToCSV(formData);
+            
+            // Create filename with timestamp
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `enrollment_${timestamp}.csv`;
+
+            // Log for debugging
+            console.log('Uploading file:', filename);
+            
+            // Upload to Dropbox
+            const response = await fetch('/api/upload-to-dropbox', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    filename: filename,
+                    content: csvContent
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Upload failed');
+            }
+
+            const result = await response.json();
+            console.log('Upload successful:', result);
+
+            // Redirect to signup page
+            window.location.href = '/signup.html';
+
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert(error.message || 'There was an error submitting your enrollment. Please try again.');
+            
+            // Reset button state
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+            
+            // Reset reCAPTCHA
+            grecaptcha.reset();
+        }
+    });
+
+    // Helper function to convert form data to CSV
+    function convertFormDataToCSV(formData) {
+        // ... existing convertFormDataToCSV function ...
+    }
+    </script>
+
+    <!-- Update reCAPTCHA integration -->
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
+
+    <!-- Add this to the final step of your form -->
+    <script>
+    // Add this to the final step of your form
+    document.getElementById('enrollmentForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitButton = document.getElementById('submit-application');
+        const originalText = submitButton.textContent;
+        
+        try {
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Create CSV content
+            const csvContent = convertFormDataToCSV(formData);
+            
+            // Generate filename with timestamp
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `enrollment_${formData.get('first_name')}_${formData.get('last_name')}_${timestamp}.csv`;
+
+            // Send to Dropbox
+            const response = await fetch('/api/upload-to-dropbox', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    filename: filename,
+                    content: csvContent
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit enrollment');
+            }
+
+            // Success! Redirect to signup page
+            window.location.href = '/signup.html';
+
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('There was an error submitting your enrollment. Please try again.');
+            
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }
+    });
+
+    // Add this function to handle reCAPTCHA
+    function onRecaptchaComplete(token) {
+        const submitButton = document.getElementById('submit-application');
+        submitButton.disabled = false;
+        document.getElementById('recaptcha-error').style.display = 'none';
+    }
+
+    // Add this function to handle reCAPTCHA expiration
+    function onRecaptchaExpired() {
+        const submitButton = document.getElementById('submit-application');
+        submitButton.disabled = true;
+        document.getElementById('recaptcha-error').textContent = 'Please verify you are human again';
+        document.getElementById('recaptcha-error').style.display = 'block';
+    }
+
+    // Add this function to handle reCAPTCHA errors
+    function onRecaptchaError() {
+        const submitButton = document.getElementById('submit-application');
+        submitButton.disabled = true;
+        document.getElementById('recaptcha-error').textContent = 'Error loading reCAPTCHA. Please refresh the page.';
+        document.getElementById('recaptcha-error').style.display = 'block';
+    }
     </script>
 </body>
 </html> 
