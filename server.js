@@ -38,8 +38,8 @@ const DROPBOX_CONFIG = {
     accessToken: 'sl.BqGXXXX'  // Your Dropbox access token
 };
 
-// reCAPTCHA configuration
-const RECAPTCHA_SECRET_KEY = '6LfFsvgqAAAAAFJNIANU1rZpPBBUlNlU2oZJKpEt';
+// Add your secret key from DigitalOcean environment variables
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 
 // Upload endpoint
 app.post('/api/upload-to-dropbox', async (req, res) => {
@@ -71,6 +71,29 @@ app.post('/api/upload-to-dropbox', async (req, res) => {
             error: 'Failed to upload to Dropbox', 
             details: error.message 
         });
+    }
+});
+
+app.post('/api/submit-enrollment', async (req, res) => {
+    try {
+        // Verify reCAPTCHA
+        const recaptchaResponse = req.body['g-recaptcha-response'];
+        const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${recaptchaResponse}`;
+
+        const recaptchaResult = await axios.post(verificationURL);
+
+        if (!recaptchaResult.data.success) {
+            return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+        }
+
+        // Process form submission
+        // ... your existing form processing code ...
+
+        res.json({ success: true });
+
+    } catch (error) {
+        console.error('Server error:', error);
+        res.status(500).json({ error: 'Server error' });
     }
 });
 

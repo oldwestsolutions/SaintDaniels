@@ -15,7 +15,7 @@
     </script>
 
     <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         /* Variables */
         :root {
@@ -995,6 +995,95 @@
                 margin: 10px 0;
             }
         }
+
+        /* Welcome Page Styles */
+        .welcome-container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+
+        /* Disclaimer Styles */
+        .disclaimer-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .disclaimer-section {
+            margin-bottom: 30px;
+        }
+
+        .disclaimer-section h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-section ul {
+            margin-left: 20px;
+        }
+
+        .disclaimer-section li {
+            margin-bottom: 10px;
+        }
+
+        .consent-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .consent-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 3px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .next-btn, .back-btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: var(--gold);
+            color: var(--primary-green);
+            border: none;
+        }
+
+        .back-btn {
+            background: var(--light-tan);
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -1006,766 +1095,843 @@
     </header>
 
     <div class="container">
-        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DHu00000H9l1E" 
-              method="POST" 
-              class="enrollment-form"
-              id="enrollmentForm">
-            
-            <input type="hidden" name='captcha_settings' value='{"keyname":"SaintDaniels","fallback":"false","orgId":"00DHu00000H9l1E","ts":""}'>
-            <input type="hidden" name="oid" value="00DHu00000H9l1E">
-            <input type="hidden" name="retURL" value="https://www.saintdaniels.com/signup">
-
-            <!-- Form Header with Logo -->
-            <div class="form-header">
-                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="form-logo">
-                <div class="header-text">
-                    <h1>Saint Daniels Healthcare</h1>
-                    <h2>Enrollment Application</h2>
-                    <p>Please complete all required fields marked with an asterisk (*)</p>
-                </div>
-            </div>
-
-            <!-- Step 1: Basic Information -->
-            <div class="form-step active" id="step1">
-                <div class="form-section">
-                    <div class="form-group">
-                        <label for="first_name">First Name *</label>
-                        <input 
-                            type="text" 
-                            id="first_name" 
-                            name="first_name" 
-                            required
-                            minlength="2"
-                            pattern="[A-Za-z]{2,}"
-                            placeholder="Enter your first name"
-                        >
-                        <span class="error-message" id="first-name-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="last_name">Last Name *</label>
-                        <input 
-                            type="text" 
-                            id="last_name" 
-                            name="last_name" 
-                            required
-                            minlength="2"
-                            pattern="[A-Za-z]{2,}"
-                            placeholder="Enter your last name"
-                        >
-                        <span class="error-message" id="last-name-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            required
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                            placeholder="example@email.com"
-                        >
-                        <span class="error-message" id="email-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone *</label>
-                        <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phone" 
-                            required
-                            maxlength="14"
-                        >
-                        <span class="error-message" id="phone-error"></span>
-                    </div>
-                    <div class="form-navigation">
-                        <div></div> <!-- Empty div for spacing -->
-                        <button type="button" class="nav-btn next" onclick="nextStep(1)">Next</button>
+        <div class="enrollment-steps">
+            <!-- Step 1: Welcome Page -->
+            <div class="step" id="welcome-step">
+                <div class="welcome-container">
+                    <h1>Welcome to the Kingdom</h1>
+                    <div class="welcome-content">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="welcome-logo">
+                        <h2>Thank you for your interest in Saint Daniel's Healthcare Rewards</h2>
+                        <p>You're about to begin your journey towards royal healthcare benefits. Before proceeding with your enrollment, we'll guide you through important information about our program.</p>
+                        <button class="next-btn" onclick="showStep('disclaimer-step')">Begin Application</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 2: Dependents & Tax Info -->
-            <div class="form-step" id="step2">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Household Information</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Tell us about your household and tax status</p>
-                        </div>
-                    </div>
-
-                    <!-- Tax Information -->
-                    <div class="form-group">
-                        <label>Tax Filing Status for 2024 *</label>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="single" name="tax_status" value="Single" required>
-                                <label for="single">Single</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="married_joint" name="tax_status" value="Married Filing Jointly" required>
-                                <label for="married_joint">Married Filing Jointly</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="married_separate" name="tax_status" value="Married Filing Separately" required>
-                                <label for="married_separate">Married Filing Separately</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="head_household" name="tax_status" value="Head of Household" required>
-                                <label for="head_household">Head of Household</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Will you be claimed as a dependent on someone's taxes? *</label>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="tax_dependent_yes" name="tax_dependent" value="Yes" required>
-                                <label for="tax_dependent_yes">Yes</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="tax_dependent_no" name="tax_dependent" value="No" required>
-                                <label for="tax_dependent_no">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Spouse Information -->
-                    <div class="form-group">
-                        <label>Are you married? *</label>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="married_yes" name="married" value="Yes" required onchange="toggleSpouseInfo()">
-                                <label for="married_yes">Yes</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="married_no" name="married" value="No" required onchange="toggleSpouseInfo()">
-                                <label for="married_no">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="spouse_info" style="display: none;">
-                        <div class="form-group">
-                            <label>Is your spouse applying for coverage? *</label>
-                            <div class="radio-options">
-                                <div class="radio-option">
-                                    <input type="radio" id="spouse_applying_yes" name="spouse_applying" value="Yes" onchange="toggleSpouseDetails()">
-                                    <label for="spouse_applying_yes">Yes</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="spouse_applying_no" name="spouse_applying" value="No" onchange="toggleSpouseDetails()">
-                                    <label for="spouse_applying_no">No</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="spouse_details" style="display: none;">
-                            <div class="form-group">
-                                <label for="spouse_name">Spouse's Full Name *</label>
-                                <input type="text" id="spouse_name" name="spouse_name">
-                            </div>
-                            <div class="form-group">
-                                <label for="spouse_dob">Spouse's Date of Birth *</label>
-                                <input type="date" id="spouse_dob" name="spouse_dob">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dependents Information -->
-                    <div class="form-group">
-                        <label>Are you adding any dependents to this application? *</label>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="dependents_yes" name="has_dependents" value="Yes" required onchange="toggleDependentInfo()">
-                                <label for="dependents_yes">Yes</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="dependents_no" name="has_dependents" value="No" required onchange="toggleDependentInfo()">
-                                <label for="dependents_no">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="dependent_info" style="display: none;">
-                        <div id="dependents_container">
-                            <!-- Dependent template will be added here -->
-                        </div>
-                        <button type="button" class="add-dependent-btn" onclick="addDependent()">+ Add Another Dependent</button>
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="nav-btn prev" onclick="prevStep(2)">Previous</button>
-                        <button type="button" class="nav-btn next" onclick="nextStep(2)">Next</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 3: Residential Address -->
-            <div class="form-step" id="step3">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Residential Address</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Please provide your current living address</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="street_address">Street Address *</label>
-                        <input 
-                            type="text" 
-                            id="street_address" 
-                            name="street_address" 
-                            placeholder="Start typing your address..."
-                            required
-                        >
-                        <div id="address_suggestions" class="suggestions-container"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="city">City *</label>
-                        <input 
-                            type="text" 
-                            id="city" 
-                            name="city" 
-                            required
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="state">State *</label>
-                        <input 
-                            type="text" 
-                            id="state" 
-                            name="state" 
-                            required
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="zip">ZIP Code *</label>
-                        <input 
-                            type="text" 
-                            id="zip" 
-                            name="zip" 
-                            required
-                            pattern="\d{5}"
-                            maxlength="5"
-                            placeholder="5-digit ZIP code"
-                        >
-                    </div>
-                    <div class="form-navigation">
-                        <button type="button" class="nav-btn prev" onclick="prevStep(3)">Previous</button>
-                        <button type="button" class="nav-btn next" onclick="nextStep(3)">Next</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 4: Mailing Address -->
-            <div class="form-step" id="step4">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Mailing Address</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Where would you like to receive mail?</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="same_as_residential" onchange="toggleMailingAddress()">
-                            <label for="same_as_residential">Same as Residential Address</label>
-                        </div>
-                    </div>
-
-                    <div id="mailing_address_fields">
-                        <div class="form-group">
-                            <label for="mailing_street">Street Address *</label>
-                            <textarea id="mailing_street" name="mailing_street" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="mailing_city">City *</label>
-                            <input id="mailing_city" name="mailing_city" type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mailing_state">State *</label>
-                            <input id="mailing_state" name="mailing_state" type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mailing_zip">ZIP Code *</label>
-                            <input id="mailing_zip" name="mailing_zip" type="text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="nav-btn prev" onclick="prevStep(4)">Previous</button>
-                        <button type="button" class="nav-btn next" onclick="nextStep(4)">Next</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 5: Citizenship Information -->
-            <div class="form-step" id="step5">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Birth & Citizenship</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Tell us about your place of birth and citizenship status</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="dob">Date of Birth *</label>
-                        <input 
-                            type="date" 
-                            id="dob" 
-                            name="dob"
-                            max="2006-12-31" 
-                            required
-                        >
-                        <p class="field-note">You must be at least 18 years old to enroll</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="birth_state">State of Birth *</label>
-                        <input type="text" id="birth_state" name="birth_state" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="birth_country">Country of Birth *</label>
-                        <input type="text" id="birth_country" name="birth_country" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Are you a U.S. Citizen? *</label>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="citizen_yes" name="us_citizen" value="Yes" required>
-                                <label for="citizen_yes">Yes</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="citizen_no" name="us_citizen" value="No" required>
-                                <label for="citizen_no">No</label>
-                            </div>
-                        </div>
-                        <div class="citizenship-notice">
-                            <p>Note: Non-U.S. citizenship does not disqualify you from healthcare benefits. Additional documentation may be required, and our team will contact you to assist.</p>
-                        </div>
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="nav-btn prev" onclick="prevStep(5)">Previous</button>
-                        <button type="button" class="nav-btn next" onclick="nextStep(5)">Next</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 6: Insurance -->
-            <div class="form-step" id="step6">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Insurance Carriers</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Select your preferred insurance options</p>
-                        </div>
-                    </div>
-
-                    <!-- Insurance Carrier Selection -->
-                    <div class="form-group">
-                        <label>Select Your Insurance Carrier *</label>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="united_healthcare" name="insurance_carrier" value="United Healthcare" required>
-                                <label for="united_healthcare">United Healthcare</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="ambetter" name="insurance_carrier" value="Ambetter" required>
-                                <label for="ambetter">Ambetter</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Premium Selection -->
-                    <div class="form-group">
-                        <label>Premium Option</label>
-                        <div class="checkbox-options">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="zero_premium" name="premium_option" value="$0 Premium" checked disabled>
-                                <label for="zero_premium">$0 Premium Plan</label>
-                            </div>
-                        </div>
-                        <p class="option-explanation">With a $0 premium plan, you pay nothing monthly for your health insurance coverage.</p>
-                    </div>
-
-                    <!-- Deductible Selection -->
-                    <div class="form-group">
-                        <label>Select Your Preferred Deductible *</label>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="zero_deductible" name="deductible" value="$0 Deductible" required>
-                                <label for="zero_deductible">$0.00 Deductible</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="lower_deductible" name="deductible" value="Lower Deductible" required>
-                                <label for="lower_deductible">Lower Deductible</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="higher_deductible" name="deductible" value="Higher Deductible" required>
-                                <label for="higher_deductible">Higher Deductible</label>
-                            </div>
-                        </div>
-                        <div class="deductible-explanations">
-                            <p class="option-explanation">A $0 deductible means your insurance begins paying for your coverage immediately.</p>
-                            <p class="option-explanation highlight">Higher deductible plans still cost $0 today - you only pay when you use the insurance, plus you'll receive enhanced benefits through Saint Daniels Healthcare.</p>
-                        </div>
-                    </div>
-
-                    <!-- Current Coverage Warning -->
-                    <div class="coverage-warning">
-                        <h4>Current Coverage Notice</h4>
-                        <p>Do you have any of these insurance coverages?</p>
-                        <div class="insurance-options">
-                            <div class="insurance-option">
-                                <input type="checkbox" id="medicare" name="current_coverage" value="Medicare">
-                                <label for="medicare">Medicare</label>
-                            </div>
-                            <div class="insurance-option">
-                                <input type="checkbox" id="medicaid" name="current_coverage" value="Medicaid">
-                                <label for="medicaid">Medicaid</label>
-                            </div>
-                            <div class="insurance-option">
-                                <input type="checkbox" id="tricare" name="current_coverage" value="Tricare">
-                                <label for="tricare">Tricare</label>
-                            </div>
-                            <div class="insurance-option">
-                                <input type="checkbox" id="employer" name="current_coverage" value="Employer Coverage">
-                                <label for="employer">Employer Coverage</label>
-                            </div>
-                            <div class="insurance-option">
-                                <input type="checkbox" id="no_coverage" name="current_coverage" value="No Current Coverage" required>
-                                <label for="no_coverage">No, I don't have any of these coverages</label>
-                            </div>
-                        </div>
-                        <p class="warning-text">If you selected any coverage above (except "No"), you would not be able to qualify under most circumstances unless you were planning on leaving your current level of coverage. For assistance, please contact us directly.</p>
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="nav-btn prev" onclick="prevStep(6)">Previous</button>
-                        <button type="button" class="nav-btn next" onclick="nextStep(6)">Next</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 7: Employment -->
-            <div class="form-step" id="step7">
-                <div class="form-section">
-                    <h2>Employment Information</h2>
-                    <div class="form-group">
-                        <label for="occupation">Occupation *</label>
-                        <input id="occupation" name="occupation" type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="income">Expected Annual Income for Current Tax Year *</label>
-                        <div class="income-input-wrapper">
-                            <span class="dollar-sign">$</span>
-                            <input 
-                                type="text" 
-                                id="income" 
-                                name="income"
-                                required
-                                class="currency-input"
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="form-navigation">
-                    <button type="button" class="nav-btn prev" onclick="prevStep(7)">Previous</button>
-                    <button type="button" class="nav-btn next" onclick="nextStep(7)">Next</button>
-                </div>
-            </div>
-
-            <!-- Step 8: Signature -->
-            <div class="form-step" id="step8">
-                <div class="signature-section">
-                    <h2>Electronic Signature</h2>
+            <!-- Step 2: Disclaimer -->
+            <div class="step" id="disclaimer-step" style="display: none;">
+                <div class="disclaimer-container">
+                    <h2>Legal Disclaimer and Terms of Enrollment</h2>
                     
-                    <!-- Terms and Conditions Container -->
-                    <div class="terms-container">
-                        <h3>Terms & Conditions, Privacy Notice, and Legal Disclaimer</h3>
-                        <div class="terms-content">
-                            <h4>1. Introduction</h4>
-                            <p>Welcome to SaintDaniels.com (the "Website"). By accessing, using, or submitting any enrollment application through this Website, you acknowledge and agree to the following terms and conditions, legal disclaimers, and privacy and security notices. Your continued use of this Website constitutes your binding acceptance of these terms.</p>
-                            
-                            <p>If you do not agree with these terms, DO NOT use this Website or submit an enrollment application.</p>
-
-                            <h4>2. Legal Disclaimer</h4>
-                            <h5>2.1. No Guarantee of Enrollment</h5>
-                            <p>Submission of an enrollment application through SaintDaniels.com does not guarantee approval or acceptance into any health insurance plan. All applications are subject to verification, underwriting, and approval by the applicable health insurance provider or government agency.</p>
-
-                            <h5>2.2. Compliance with Laws</h5>
-                            <p>SaintDaniels.com operates in compliance with all applicable federal, state, and local laws regarding health insurance enrollment. Users must ensure that all information provided is accurate, truthful, and legally compliant.</p>
-
-                            <h5>2.3. Misuse and Abuse Policy</h5>
-                            <p>SaintDaniels.com strictly prohibits fraudulent activities, misrepresentation, or any misuse of the enrollment platform. If SaintDaniels.com becomes aware of any attempt to abuse, manipulate, or fraudulently use this system, the offending user will be permanently banned from accessing the system.</p>
-                            
-                            <p>Furthermore, SaintDaniels.com reserves the right to report fraudulent activity to law enforcement, regulatory authorities, and any affected health insurance providers.</p>
-
-                            <h5>2.4. Legal Oversight</h5>
-                            <p>All interactions with this Website and its services are governed by the law office retained by the proprietor of SaintDaniels.com. In the event of any disputes, misuse, or violations of these terms, SaintDaniels.com reserves the right to take appropriate legal action, including litigation, arbitration, or referral to regulatory authorities.</p>
-
-                            <h4>3. Privacy Notice & Data Security</h4>
-                            <h5>3.1. Collection of Information</h5>
-                            <p>By using this Website, you acknowledge that SaintDaniels.com may collect, process, and store personal and sensitive information necessary for health insurance enrollment. This includes, but is not limited to:</p>
-                            <ul>
-                                <li>Full Name</li>
-                                <li>Date of Birth</li>
-                                <li>Social Security Number</li>
-                                <li>Contact Information</li>
-                                <li>Health & Financial Information</li>
-                            </ul>
-                            <p>All data collected is handled in strict compliance with the Health Insurance Portability and Accountability Act (HIPAA) and other relevant privacy laws.</p>
-
-                            <h5>3.2. Data Protection & Security</h5>
-                            <p>SaintDaniels.com implements industry-standard security measures to protect user data. However, no system is completely secure, and SaintDaniels.com cannot guarantee absolute data security. Users are responsible for maintaining the confidentiality of their login credentials and must notify us immediately of any unauthorized access.</p>
-
-                            <h5>3.3. Third-Party Sharing</h5>
-                            <p>SaintDaniels.com may share user information with insurance carriers, government agencies, and third-party service providers solely for the purpose of processing applications. We do not sell or distribute user data for commercial purposes.</p>
-
-                            <h5>3.4. User Consent</h5>
-                            <p>By submitting an application, you consent to the collection, processing, and sharing of your data as outlined in this Privacy Notice.</p>
-
-                            <h4>4. Terms & Conditions of Use</h4>
-                            <h5>4.1. Eligibility</h5>
-                            <p>To use this Website, you must:</p>
-                            <ul>
-                                <li>Be at least 18 years of age or the legal age of consent in your jurisdiction.</li>
-                                <li>Provide accurate, complete, and truthful information in your enrollment application.</li>
-                                <li>Agree to abide by these Terms & Conditions.</li>
-                            </ul>
-
-                            <h5>4.2. Prohibited Activities</h5>
-                            <p>Users of SaintDaniels.com shall not:</p>
-                            <ul>
-                                <li>Provide false, misleading, or fraudulent information.</li>
-                                <li>Attempt to hack, disrupt, or manipulate the Website.</li>
-                                <li>Share login credentials or unauthorized access with third parties.</li>
-                                <li>Engage in identity theft or unauthorized use of another person's information.</li>
-                            </ul>
-                            <p>Any violations will result in permanent banning from the platform and potential legal action.</p>
-
-                            <h5>4.3. System Availability & Downtime</h5>
-                            <p>SaintDaniels.com does not guarantee uninterrupted access to its services. Scheduled maintenance, technical issues, or external factors may cause temporary disruptions. Users acknowledge that SaintDaniels.com is not liable for any losses due to service unavailability.</p>
-
-                            <h4>5. Legal Jurisdiction & Dispute Resolution</h4>
-                            <h5>5.1. Governing Law</h5>
-                            <p>These Terms & Conditions shall be governed by and interpreted in accordance with the laws of the United States and the applicable state laws where SaintDaniels.com is registered.</p>
-
-                            <h5>5.2. Dispute Resolution</h5>
-                            <p>In the event of a dispute, users agree to resolve issues through binding arbitration or mediation before pursuing legal action. Litigation, if necessary, shall be pursued in the appropriate jurisdiction as determined by SaintDaniels.com's legal counsel.</p>
-
-                            <h4>6. Modifications & Updates</h4>
-                            <p>SaintDaniels.com reserves the right to update, modify, or amend these Terms & Conditions at any time. Continued use of the Website constitutes acceptance of any revisions.</p>
-                            
-                            <p>Users are encouraged to review this document periodically to stay informed of any changes.</p>
-
-                            <h4>7. Contact Information</h4>
-                            <p>For questions or concerns regarding these Terms & Conditions, Privacy Policy, or Legal Disclaimer, please contact:</p>
-                            <p>SaintDaniels.com Legal Compliance Team<br>
-                            📧 Email: support@saintdaniels.com</p>
-                        </div>
+                    <div class="disclaimer-section">
+                        <h3>Healthcare Insurance Enrollment</h3>
+                        <p>By proceeding with this application, you acknowledge that you are applying for healthcare insurance coverage through Saint Daniel's Healthcare Rewards program.</p>
                     </div>
 
-                    <div class="signature-agreement">
-                        <p>By typing your full name below, you confirm that you have read, understood, and agreed to these Terms & Conditions, Privacy Notice, and Legal Disclaimer. This constitutes your legal electronic signature.</p>
-                        
-                        <div class="form-group">
-                            <label for="signature">Full Name (must match exactly as entered) *</label>
-                            <input 
-                                id="signature" 
-                                name="signature" 
-                                type="text" 
-                                required
-                            >
-                            <span class="error-message" id="signature-error"></span>
-                        </div>
-
-                        <!-- Moved SSN Field Here -->
-                        <div class="form-group secure-ssn">
-                            <label for="ssn">Social Security Number (Required for Enrollment) *</label>
-                            <input 
-                                type="text" 
-                                id="ssn" 
-                                name="ssn" 
-                                maxlength="9"
-                                autocomplete="off"
-                                required
-                            >
-                            <span class="error-message" id="ssn-error"></span>
-                            <div class="security-notice">
-                                <i class="fas fa-lock"></i>
-                                <p>Your SSN is required to process your enrollment application. This information is transmitted over a secure, encrypted connection and protected in accordance with HIPAA guidelines.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- reCAPTCHA -->
-                    <div class="form-group">
-                        <div id="recaptcha-error" class="error-message" style="display: none;"></div>
-                        <div class="g-recaptcha" 
-                            data-sitekey="6LfFsvgqAAAAAFFTQ_daAjCVrWYUdWd_xemZzgq8"
-                            data-callback="enableSubmitButton"
-                            data-expired-callback="disableSubmitButton"
-                            data-size="normal">
-                        </div>
-                    </div>
-                    
-                    <div class="form-navigation">
-                        <button type="button" class="nav-btn prev" onclick="prevStep(8)">Previous</button>
-                        <button type="submit" class="submit-btn">Submit Enrollment</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Medicaid Coverage Notice -->
-            <div class="form-step" id="medicaid_notice">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Medicaid Coverage Notice</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Important Information About Your Coverage</p>
-                        </div>
-                    </div>
-                    
-                    <div class="notice-content">
-                        <div class="important-notice">
-                            <p>Please understand that by proceeding, you are choosing to either:</p>
-                            <ul>
-                                <li>Keep your Medicaid with very limited benefits, or</li>
-                                <li>Reject/drop your current Medicaid coverage</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="form-navigation">
-                            <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Go Back</button>
-                            <button type="button" class="nav-btn next" onclick="proceedToOccupation()">I Understand, Continue</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-step" id="employer_notice">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Employer Coverage Notice</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Important Information About Your Coverage</p>
-                        </div>
-                    </div>
-                    
-                    <div class="notice-content">
-                        <div class="important-notice">
-                            <p>Please note that in most instances, having employer coverage means you do not qualify for this program. However, under certain conditions, you may still be eligible to proceed.</p>
-                        </div>
-                        
-                        <div class="form-navigation">
-                            <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Go Back</button>
-                            <button type="button" class="nav-btn next" onclick="proceedToOccupation()">I Understand, Continue</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-step" id="medicare_notice">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Medicare Coverage Notice</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Important Information About Your Coverage</p>
-                        </div>
-                    </div>
-                    
-                    <div class="notice-content">
-                        <p>You are not changing your health insurance carrier. You are changing the agency that manages your health insurance coverage to receive enhanced benefits through the Saint Daniel's platform.</p>
-                        
-                        <ul class="notice-points">
-                            <li>Centuries Mutual will manage your health insurance plan and communicate directly with your carrier</li>
-                            <li>Saint Daniel's is a subsidiary of Centuries Mutual</li>
-                            <li>You will have access to all benefits from both Centuries Mutual and Saint Daniel's</li>
+                    <div class="disclaimer-section">
+                        <h3>Security & Privacy</h3>
+                        <p>We maintain strict security protocols to protect your personal information:</p>
+                        <ul>
+                            <li>256-bit SSL encryption for all data transmission</li>
+                            <li>HIPAA-compliant data storage and handling</li>
+                            <li>Regular security audits and compliance checks</li>
+                            <li>Multi-factor authentication for access control</li>
                         </ul>
+                    </div>
 
-                        <div class="important-notice">
-                            <p><strong>Important:</strong> Per CMS guidelines, all Medicare enrollments must be completed over the phone with a licensed agent.</p>
+                    <div class="disclaimer-section">
+                        <h3>Program Integrity</h3>
+                        <p>The following actions are strictly prohibited and may result in immediate termination of benefits:</p>
+                        <ul>
+                            <li>Providing false or misleading information</li>
+                            <li>Attempting to enroll multiple times</li>
+                            <li>Sharing or selling program benefits</li>
+                            <li>Manipulating the rewards system</li>
+                        </ul>
+                    </div>
+
+                    <div class="disclaimer-section">
+                        <h3>Penalties for Abuse</h3>
+                        <p>Violations of program terms may result in:</p>
+                        <ul>
+                            <li>Immediate termination of coverage</li>
+                            <li>Forfeiture of all accumulated rewards</li>
+                            <li>Legal action for fraudulent activities</li>
+                            <li>Reporting to relevant healthcare authorities</li>
+                            <li>Permanent ban from future enrollment</li>
+                        </ul>
+                    </div>
+
+                    <div class="disclaimer-section">
+                        <h3>Consent</h3>
+                        <div class="consent-checkbox">
+                            <input type="checkbox" id="disclaimer-consent" required>
+                            <label for="disclaimer-consent">I have read and understand the above disclaimer, and I agree to the terms and conditions of enrollment.</label>
                         </div>
+                    </div>
 
-                        <div class="contact-options">
-                            <h4>Choose how you'd like to proceed:</h4>
-                            
-                            <div class="contact-grid">
-                                <div class="contact-option">
-                                    <i class="fas fa-phone"></i>
-                                    <h5>Call Now</h5>
-                                    <p>Speak with an agent immediately</p>
-                                    <a href="tel:1234567890" class="action-button phone">Call Now</a>
+                    <div class="button-group">
+                        <button class="back-btn" onclick="showStep('welcome-step')">Back</button>
+                        <button class="next-btn" onclick="validateAndProceed()" id="proceed-btn" disabled>Proceed to Application</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Original enrollment form (now Step 3) -->
+            <div class="step" id="enrollment-form-step" style="display: none;">
+                <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DHu00000H9l1E" 
+                      method="POST" 
+                      class="enrollment-form"
+                      id="enrollmentForm">
+                    
+                    <input type="hidden" name='captcha_settings' value='{"keyname":"SaintDaniels","fallback":"false","orgId":"00DHu00000H9l1E","ts":""}'>
+                    <input type="hidden" name="oid" value="00DHu00000H9l1E">
+                    <input type="hidden" name="retURL" value="https://www.saintdaniels.com/signup">
+
+                    <!-- Form Header with Logo -->
+                    <div class="form-header">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="form-logo">
+                        <div class="header-text">
+                            <h1>Saint Daniels Healthcare</h1>
+                            <h2>Enrollment Application</h2>
+                            <p>Please complete all required fields marked with an asterisk (*)</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Basic Information -->
+                    <div class="form-step active" id="step1">
+                        <div class="form-section">
+                            <div class="form-group">
+                                <label for="first_name">First Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="first_name" 
+                                    name="first_name" 
+                                    required
+                                    minlength="2"
+                                    pattern="[A-Za-z]{2,}"
+                                    placeholder="Enter your first name"
+                                >
+                                <span class="error-message" id="first-name-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="last_name" 
+                                    name="last_name" 
+                                    required
+                                    minlength="2"
+                                    pattern="[A-Za-z]{2,}"
+                                    placeholder="Enter your last name"
+                                >
+                                <span class="error-message" id="last-name-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                    placeholder="example@email.com"
+                                >
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone *</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone" 
+                                    required
+                                    maxlength="14"
+                                >
+                                <span class="error-message" id="phone-error"></span>
+                            </div>
+                            <div class="form-navigation">
+                                <div></div> <!-- Empty div for spacing -->
+                                <button type="button" class="nav-btn next" onclick="nextStep(1)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Dependents & Tax Info -->
+                    <div class="form-step" id="step2">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Household Information</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Tell us about your household and tax status</p>
                                 </div>
-                                
-                                <div class="contact-option">
-                                    <i class="fas fa-envelope"></i>
-                                    <h5>Email Us</h5>
-                                    <p>Get information via email</p>
-                                    <a href="mailto:contact@example.com" class="action-button email">Send Email</a>
+                            </div>
+
+                            <!-- Tax Information -->
+                            <div class="form-group">
+                                <label>Tax Filing Status for 2024 *</label>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="single" name="tax_status" value="Single" required>
+                                        <label for="single">Single</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="married_joint" name="tax_status" value="Married Filing Jointly" required>
+                                        <label for="married_joint">Married Filing Jointly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="married_separate" name="tax_status" value="Married Filing Separately" required>
+                                        <label for="married_separate">Married Filing Separately</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="head_household" name="tax_status" value="Head of Household" required>
+                                        <label for="head_household">Head of Household</label>
+                                    </div>
                                 </div>
-                                
-                                <div class="contact-option">
-                                    <i class="fas fa-file-alt"></i>
-                                    <h5>Continue Application</h5>
-                                    <p>Proceed with online enrollment</p>
-                                    <button onclick="proceedToOccupation()" class="action-button continue">Continue Online</button>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Will you be claimed as a dependent on someone's taxes? *</label>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="tax_dependent_yes" name="tax_dependent" value="Yes" required>
+                                        <label for="tax_dependent_yes">Yes</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="tax_dependent_no" name="tax_dependent" value="No" required>
+                                        <label for="tax_dependent_no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Spouse Information -->
+                            <div class="form-group">
+                                <label>Are you married? *</label>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="married_yes" name="married" value="Yes" required onchange="toggleSpouseInfo()">
+                                        <label for="married_yes">Yes</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="married_no" name="married" value="No" required onchange="toggleSpouseInfo()">
+                                        <label for="married_no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="spouse_info" style="display: none;">
+                                <div class="form-group">
+                                    <label>Is your spouse applying for coverage? *</label>
+                                    <div class="radio-options">
+                                        <div class="radio-option">
+                                            <input type="radio" id="spouse_applying_yes" name="spouse_applying" value="Yes" onchange="toggleSpouseDetails()">
+                                            <label for="spouse_applying_yes">Yes</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="spouse_applying_no" name="spouse_applying" value="No" onchange="toggleSpouseDetails()">
+                                            <label for="spouse_applying_no">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="spouse_details" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="spouse_name">Spouse's Full Name *</label>
+                                        <input type="text" id="spouse_name" name="spouse_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="spouse_dob">Spouse's Date of Birth *</label>
+                                        <input type="date" id="spouse_dob" name="spouse_dob">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dependents Information -->
+                            <div class="form-group">
+                                <label>Are you adding any dependents to this application? *</label>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="dependents_yes" name="has_dependents" value="Yes" required onchange="toggleDependentInfo()">
+                                        <label for="dependents_yes">Yes</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="dependents_no" name="has_dependents" value="No" required onchange="toggleDependentInfo()">
+                                        <label for="dependents_no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="dependent_info" style="display: none;">
+                                <div id="dependents_container">
+                                    <!-- Dependent template will be added here -->
+                                </div>
+                                <button type="button" class="add-dependent-btn" onclick="addDependent()">+ Add Another Dependent</button>
+                            </div>
+
+                            <div class="form-navigation">
+                                <button type="button" class="nav-btn prev" onclick="prevStep(2)">Previous</button>
+                                <button type="button" class="nav-btn next" onclick="nextStep(2)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Residential Address -->
+                    <div class="form-step" id="step3">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Residential Address</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Please provide your current living address</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="street_address">Street Address *</label>
+                                <input 
+                                    type="text" 
+                                    id="street_address" 
+                                    name="street_address" 
+                                    placeholder="Start typing your address..."
+                                    required
+                                >
+                                <div id="address_suggestions" class="suggestions-container"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <input 
+                                    type="text" 
+                                    id="city" 
+                                    name="city" 
+                                    required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State *</label>
+                                <input 
+                                    type="text" 
+                                    id="state" 
+                                    name="state" 
+                                    required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="zip">ZIP Code *</label>
+                                <input 
+                                    type="text" 
+                                    id="zip" 
+                                    name="zip" 
+                                    required
+                                    pattern="\d{5}"
+                                    maxlength="5"
+                                    placeholder="5-digit ZIP code"
+                                >
+                            </div>
+                            <div class="form-navigation">
+                                <button type="button" class="nav-btn prev" onclick="prevStep(3)">Previous</button>
+                                <button type="button" class="nav-btn next" onclick="nextStep(3)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Mailing Address -->
+                    <div class="form-step" id="step4">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Mailing Address</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Where would you like to receive mail?</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="same_as_residential" onchange="toggleMailingAddress()">
+                                    <label for="same_as_residential">Same as Residential Address</label>
+                                </div>
+                            </div>
+
+                            <div id="mailing_address_fields">
+                                <div class="form-group">
+                                    <label for="mailing_street">Street Address *</label>
+                                    <textarea id="mailing_street" name="mailing_street" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mailing_city">City *</label>
+                                    <input id="mailing_city" name="mailing_city" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mailing_state">State *</label>
+                                    <input id="mailing_state" name="mailing_state" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mailing_zip">ZIP Code *</label>
+                                    <input id="mailing_zip" name="mailing_zip" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-navigation">
+                                <button type="button" class="nav-btn prev" onclick="prevStep(4)">Previous</button>
+                                <button type="button" class="nav-btn next" onclick="nextStep(4)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Citizenship Information -->
+                    <div class="form-step" id="step5">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Birth & Citizenship</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Tell us about your place of birth and citizenship status</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dob">Date of Birth *</label>
+                                <input 
+                                    type="date" 
+                                    id="dob" 
+                                    name="dob"
+                                    max="2006-12-31" 
+                                    required
+                                >
+                                <p class="field-note">You must be at least 18 years old to enroll</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birth_state">State of Birth *</label>
+                                <input type="text" id="birth_state" name="birth_state" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birth_country">Country of Birth *</label>
+                                <input type="text" id="birth_country" name="birth_country" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Are you a U.S. Citizen? *</label>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="citizen_yes" name="us_citizen" value="Yes" required>
+                                        <label for="citizen_yes">Yes</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="citizen_no" name="us_citizen" value="No" required>
+                                        <label for="citizen_no">No</label>
+                                    </div>
+                                </div>
+                                <div class="citizenship-notice">
+                                    <p>Note: Non-U.S. citizenship does not disqualify you from healthcare benefits. Additional documentation may be required, and our team will contact you to assist.</p>
+                                </div>
+                            </div>
+
+                            <div class="form-navigation">
+                                <button type="button" class="nav-btn prev" onclick="prevStep(5)">Previous</button>
+                                <button type="button" class="nav-btn next" onclick="nextStep(5)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Insurance -->
+                    <div class="form-step" id="step6">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Insurance Carriers</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Select your preferred insurance options</p>
+                                </div>
+                            </div>
+
+                            <!-- Insurance Carrier Selection -->
+                            <div class="form-group">
+                                <label>Select Your Insurance Carrier *</label>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="united_healthcare" name="insurance_carrier" value="United Healthcare" required>
+                                        <label for="united_healthcare">United Healthcare</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="ambetter" name="insurance_carrier" value="Ambetter" required>
+                                        <label for="ambetter">Ambetter</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Premium Selection -->
+                            <div class="form-group">
+                                <label>Premium Option</label>
+                                <div class="checkbox-options">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="zero_premium" name="premium_option" value="$0 Premium" checked disabled>
+                                        <label for="zero_premium">$0 Premium Plan</label>
+                                    </div>
+                                </div>
+                                <p class="option-explanation">With a $0 premium plan, you pay nothing monthly for your health insurance coverage.</p>
+                            </div>
+
+                            <!-- Deductible Selection -->
+                            <div class="form-group">
+                                <label>Select Your Preferred Deductible *</label>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="zero_deductible" name="deductible" value="$0 Deductible" required>
+                                        <label for="zero_deductible">$0.00 Deductible</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="lower_deductible" name="deductible" value="Lower Deductible" required>
+                                        <label for="lower_deductible">Lower Deductible</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="higher_deductible" name="deductible" value="Higher Deductible" required>
+                                        <label for="higher_deductible">Higher Deductible</label>
+                                    </div>
+                                </div>
+                                <div class="deductible-explanations">
+                                    <p class="option-explanation">A $0 deductible means your insurance begins paying for your coverage immediately.</p>
+                                    <p class="option-explanation highlight">Higher deductible plans still cost $0 today - you only pay when you use the insurance, plus you'll receive enhanced benefits through Saint Daniels Healthcare.</p>
+                                </div>
+                            </div>
+
+                            <!-- Current Coverage Warning -->
+                            <div class="coverage-warning">
+                                <h4>Current Coverage Notice</h4>
+                                <p>Do you have any of these insurance coverages?</p>
+                                <div class="insurance-options">
+                                    <div class="insurance-option">
+                                        <input type="checkbox" id="medicare" name="current_coverage" value="Medicare">
+                                        <label for="medicare">Medicare</label>
+                                    </div>
+                                    <div class="insurance-option">
+                                        <input type="checkbox" id="medicaid" name="current_coverage" value="Medicaid">
+                                        <label for="medicaid">Medicaid</label>
+                                    </div>
+                                    <div class="insurance-option">
+                                        <input type="checkbox" id="tricare" name="current_coverage" value="Tricare">
+                                        <label for="tricare">Tricare</label>
+                                    </div>
+                                    <div class="insurance-option">
+                                        <input type="checkbox" id="employer" name="current_coverage" value="Employer Coverage">
+                                        <label for="employer">Employer Coverage</label>
+                                    </div>
+                                    <div class="insurance-option">
+                                        <input type="checkbox" id="no_coverage" name="current_coverage" value="No Current Coverage" required>
+                                        <label for="no_coverage">No, I don't have any of these coverages</label>
+                                    </div>
+                                </div>
+                                <p class="warning-text">If you selected any coverage above (except "No"), you would not be able to qualify under most circumstances unless you were planning on leaving your current level of coverage. For assistance, please contact us directly.</p>
+                            </div>
+
+                            <div class="form-navigation">
+                                <button type="button" class="nav-btn prev" onclick="prevStep(6)">Previous</button>
+                                <button type="button" class="nav-btn next" onclick="nextStep(6)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 7: Employment -->
+                    <div class="form-step" id="step7">
+                        <div class="form-section">
+                            <h2>Employment Information</h2>
+                            <div class="form-group">
+                                <label for="occupation">Occupation *</label>
+                                <input id="occupation" name="occupation" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="income">Expected Annual Income for Current Tax Year *</label>
+                                <div class="income-input-wrapper">
+                                    <span class="dollar-sign">$</span>
+                                    <input 
+                                        type="text" 
+                                        id="income" 
+                                        name="income"
+                                        required
+                                        class="currency-input"
+                                    >
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-navigation">
-                            <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Return to Insurance Options</button>
+                            <button type="button" class="nav-btn prev" onclick="prevStep(7)">Previous</button>
+                            <button type="button" class="nav-btn next" onclick="nextStep(7)">Next</button>
                         </div>
                     </div>
-                </div>
+
+                    <!-- Step 8: Signature -->
+                    <div class="form-step" id="step8">
+                        <div class="signature-section">
+                            <h2>Electronic Signature</h2>
+                            
+                            <!-- Terms and Conditions Container -->
+                            <div class="terms-container">
+                                <h3>Terms & Conditions, Privacy Notice, and Legal Disclaimer</h3>
+                                <div class="terms-content">
+                                    <h4>1. Introduction</h4>
+                                    <p>Welcome to SaintDaniels.com (the "Website"). By accessing, using, or submitting any enrollment application through this Website, you acknowledge and agree to the following terms and conditions, legal disclaimers, and privacy and security notices. Your continued use of this Website constitutes your binding acceptance of these terms.</p>
+                                    
+                                    <p>If you do not agree with these terms, DO NOT use this Website or submit an enrollment application.</p>
+
+                                    <h4>2. Legal Disclaimer</h4>
+                                    <h5>2.1. No Guarantee of Enrollment</h5>
+                                    <p>Submission of an enrollment application through SaintDaniels.com does not guarantee approval or acceptance into any health insurance plan. All applications are subject to verification, underwriting, and approval by the applicable health insurance provider or government agency.</p>
+
+                                    <h5>2.2. Compliance with Laws</h5>
+                                    <p>SaintDaniels.com operates in compliance with all applicable federal, state, and local laws regarding health insurance enrollment. Users must ensure that all information provided is accurate, truthful, and legally compliant.</p>
+
+                                    <h5>2.3. Misuse and Abuse Policy</h5>
+                                    <p>SaintDaniels.com strictly prohibits fraudulent activities, misrepresentation, or any misuse of the enrollment platform. If SaintDaniels.com becomes aware of any attempt to abuse, manipulate, or fraudulently use this system, the offending user will be permanently banned from accessing the system.</p>
+                                    
+                                    <p>Furthermore, SaintDaniels.com reserves the right to report fraudulent activity to law enforcement, regulatory authorities, and any affected health insurance providers.</p>
+
+                                    <h5>2.4. Legal Oversight</h5>
+                                    <p>All interactions with this Website and its services are governed by the law office retained by the proprietor of SaintDaniels.com. In the event of any disputes, misuse, or violations of these terms, SaintDaniels.com reserves the right to take appropriate legal action, including litigation, arbitration, or referral to regulatory authorities.</p>
+
+                                    <h4>3. Privacy Notice & Data Security</h4>
+                                    <h5>3.1. Collection of Information</h5>
+                                    <p>By using this Website, you acknowledge that SaintDaniels.com may collect, process, and store personal and sensitive information necessary for health insurance enrollment. This includes, but is not limited to:</p>
+                                    <ul>
+                                        <li>Full Name</li>
+                                        <li>Date of Birth</li>
+                                        <li>Social Security Number</li>
+                                        <li>Contact Information</li>
+                                        <li>Health & Financial Information</li>
+                                    </ul>
+                                    <p>All data collected is handled in strict compliance with the Health Insurance Portability and Accountability Act (HIPAA) and other relevant privacy laws.</p>
+
+                                    <h5>3.2. Data Protection & Security</h5>
+                                    <p>SaintDaniels.com implements industry-standard security measures to protect user data. However, no system is completely secure, and SaintDaniels.com cannot guarantee absolute data security. Users are responsible for maintaining the confidentiality of their login credentials and must notify us immediately of any unauthorized access.</p>
+
+                                    <h5>3.3. Third-Party Sharing</h5>
+                                    <p>SaintDaniels.com may share user information with insurance carriers, government agencies, and third-party service providers solely for the purpose of processing applications. We do not sell or distribute user data for commercial purposes.</p>
+
+                                    <h5>3.4. User Consent</h5>
+                                    <p>By submitting an application, you consent to the collection, processing, and sharing of your data as outlined in this Privacy Notice.</p>
+
+                                    <h4>4. Terms & Conditions of Use</h4>
+                                    <h5>4.1. Eligibility</h5>
+                                    <p>To use this Website, you must:</p>
+                                    <ul>
+                                        <li>Be at least 18 years of age or the legal age of consent in your jurisdiction.</li>
+                                        <li>Provide accurate, complete, and truthful information in your enrollment application.</li>
+                                        <li>Agree to abide by these Terms & Conditions.</li>
+                                    </ul>
+
+                                    <h5>4.2. Prohibited Activities</h5>
+                                    <p>Users of SaintDaniels.com shall not:</p>
+                                    <ul>
+                                        <li>Provide false, misleading, or fraudulent information.</li>
+                                        <li>Attempt to hack, disrupt, or manipulate the Website.</li>
+                                        <li>Share login credentials or unauthorized access with third parties.</li>
+                                        <li>Engage in identity theft or unauthorized use of another person's information.</li>
+                                    </ul>
+                                    <p>Any violations will result in permanent banning from the platform and potential legal action.</p>
+
+                                    <h5>4.3. System Availability & Downtime</h5>
+                                    <p>SaintDaniels.com does not guarantee uninterrupted access to its services. Scheduled maintenance, technical issues, or external factors may cause temporary disruptions. Users acknowledge that SaintDaniels.com is not liable for any losses due to service unavailability.</p>
+
+                                    <h4>5. Legal Jurisdiction & Dispute Resolution</h4>
+                                    <h5>5.1. Governing Law</h5>
+                                    <p>These Terms & Conditions shall be governed by and interpreted in accordance with the laws of the United States and the applicable state laws where SaintDaniels.com is registered.</p>
+
+                                    <h5>5.2. Dispute Resolution</h5>
+                                    <p>In the event of a dispute, users agree to resolve issues through binding arbitration or mediation before pursuing legal action. Litigation, if necessary, shall be pursued in the appropriate jurisdiction as determined by SaintDaniels.com's legal counsel.</p>
+
+                                    <h4>6. Modifications & Updates</h4>
+                                    <p>SaintDaniels.com reserves the right to update, modify, or amend these Terms & Conditions at any time. Continued use of the Website constitutes acceptance of any revisions.</p>
+                                    
+                                    <p>Users are encouraged to review this document periodically to stay informed of any changes.</p>
+
+                                    <h4>7. Contact Information</h4>
+                                    <p>For questions or concerns regarding these Terms & Conditions, Privacy Policy, or Legal Disclaimer, please contact:</p>
+                                    <p>SaintDaniels.com Legal Compliance Team<br>
+                                    📧 Email: support@saintdaniels.com</p>
+                                </div>
+                            </div>
+
+                            <div class="signature-agreement">
+                                <p>By typing your full name below, you confirm that you have read, understood, and agreed to these Terms & Conditions, Privacy Notice, and Legal Disclaimer. This constitutes your legal electronic signature.</p>
+                                
+                                <div class="form-group">
+                                    <label for="signature">Full Name (must match exactly as entered) *</label>
+                                    <input 
+                                        id="signature" 
+                                        name="signature" 
+                                        type="text" 
+                                        required
+                                    >
+                                    <span class="error-message" id="signature-error"></span>
+                                </div>
+
+                                <!-- Moved SSN Field Here -->
+                                <div class="form-group secure-ssn">
+                                    <label for="ssn">Social Security Number (Required for Enrollment) *</label>
+                                    <input 
+                                        type="text" 
+                                        id="ssn" 
+                                        name="ssn" 
+                                        maxlength="9"
+                                        autocomplete="off"
+                                        required
+                                    >
+                                    <span class="error-message" id="ssn-error"></span>
+                                    <div class="security-notice">
+                                        <i class="fas fa-lock"></i>
+                                        <p>Your SSN is required to process your enrollment application. This information is transmitted over a secure, encrypted connection and protected in accordance with HIPAA guidelines.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- reCAPTCHA -->
+                            <div class="form-group">
+                                <div id="recaptcha-error" class="error-message" style="display: none;"></div>
+                                <div class="g-recaptcha" 
+                                    data-sitekey="6LfFsvgqAAAAAFFTQ_daAjCVrWYUdWd_xemZzgq8"
+                                    data-callback="enableSubmitButton"
+                                    data-expired-callback="disableSubmitButton"
+                                    data-size="normal">
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" class="nav-btn prev" onclick="prevStep(8)">Previous</button>
+                                <button type="submit" class="submit-btn">Submit Enrollment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicaid Coverage Notice -->
+                    <div class="form-step" id="medicaid_notice">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Medicaid Coverage Notice</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Important Information About Your Coverage</p>
+                                </div>
+                            </div>
+                            
+                            <div class="notice-content">
+                                <div class="important-notice">
+                                    <p>Please understand that by proceeding, you are choosing to either:</p>
+                                    <ul>
+                                        <li>Keep your Medicaid with very limited benefits, or</li>
+                                        <li>Reject/drop your current Medicaid coverage</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="form-navigation">
+                                    <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Go Back</button>
+                                    <button type="button" class="nav-btn next" onclick="proceedToOccupation()">I Understand, Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="employer_notice">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Employer Coverage Notice</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Important Information About Your Coverage</p>
+                                </div>
+                            </div>
+                            
+                            <div class="notice-content">
+                                <div class="important-notice">
+                                    <p>Please note that in most instances, having employer coverage means you do not qualify for this program. However, under certain conditions, you may still be eligible to proceed.</p>
+                                </div>
+                                
+                                <div class="form-navigation">
+                                    <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Go Back</button>
+                                    <button type="button" class="nav-btn next" onclick="proceedToOccupation()">I Understand, Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="medicare_notice">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Medicare Coverage Notice</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Important Information About Your Coverage</p>
+                                </div>
+                            </div>
+                            
+                            <div class="notice-content">
+                                <p>You are not changing your health insurance carrier. You are changing the agency that manages your health insurance coverage to receive enhanced benefits through the Saint Daniel's platform.</p>
+                                
+                                <ul class="notice-points">
+                                    <li>Centuries Mutual will manage your health insurance plan and communicate directly with your carrier</li>
+                                    <li>Saint Daniel's is a subsidiary of Centuries Mutual</li>
+                                    <li>You will have access to all benefits from both Centuries Mutual and Saint Daniel's</li>
+                                </ul>
+
+                                <div class="important-notice">
+                                    <p><strong>Important:</strong> Per CMS guidelines, all Medicare enrollments must be completed over the phone with a licensed agent.</p>
+                                </div>
+
+                                <div class="contact-options">
+                                    <h4>Choose how you'd like to proceed:</h4>
+                                    
+                                    <div class="contact-grid">
+                                        <div class="contact-option">
+                                            <i class="fas fa-phone"></i>
+                                            <h5>Call Now</h5>
+                                            <p>Speak with an agent immediately</p>
+                                            <a href="tel:1234567890" class="action-button phone">Call Now</a>
+                                        </div>
+                                        
+                                        <div class="contact-option">
+                                            <i class="fas fa-envelope"></i>
+                                            <h5>Email Us</h5>
+                                            <p>Get information via email</p>
+                                            <a href="mailto:contact@example.com" class="action-button email">Send Email</a>
+                                        </div>
+                                        
+                                        <div class="contact-option">
+                                            <i class="fas fa-file-alt"></i>
+                                            <h5>Continue Application</h5>
+                                            <p>Proceed with online enrollment</p>
+                                            <button onclick="proceedToOccupation()" class="action-button continue">Continue Online</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-navigation">
+                                    <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Return to Insurance Options</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="tricare_notice">
+                        <div class="form-section">
+                            <div class="address-title">
+                                <div class="title-row">
+                                    <h3>Tricare Coverage Notice</h3>
+                                    <span class="star">✦</span>
+                                    <p class="subtitle">Important Information About Your Coverage</p>
+                                </div>
+                            </div>
+                            
+                            <div class="notice-content">
+                                <div class="important-notice">
+                                    <p>We apologize, but if you currently have Tricare coverage, we are unable to offer you a health insurance plan at this time.</p>
+                                    <p>Thank you for your interest in our services. If your coverage status changes in the future, please don't hesitate to contact us.</p>
+                                </div>
+                                
+                                <div class="contact-action">
+                                    <p>For any questions about your options:</p>
+                                    <a href="tel:1234567890" class="phone-button">Contact Us</a>
+                                </div>
+
+                                <div class="form-navigation">
+                                    <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Return to Insurance Options</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
             </div>
-
-            <div class="form-step" id="tricare_notice">
-                <div class="form-section">
-                    <div class="address-title">
-                        <div class="title-row">
-                            <h3>Tricare Coverage Notice</h3>
-                            <span class="star">✦</span>
-                            <p class="subtitle">Important Information About Your Coverage</p>
-                        </div>
-                    </div>
-                    
-                    <div class="notice-content">
-                        <div class="important-notice">
-                            <p>We apologize, but if you currently have Tricare coverage, we are unable to offer you a health insurance plan at this time.</p>
-                            <p>Thank you for your interest in our services. If your coverage status changes in the future, please don't hesitate to contact us.</p>
-                        </div>
-                        
-                        <div class="contact-action">
-                            <p>For any questions about your options:</p>
-                            <a href="tel:1234567890" class="phone-button">Contact Us</a>
-                        </div>
-
-                        <div class="form-navigation">
-                            <button type="button" class="nav-btn prev" onclick="returnToInsurancePage()">Return to Insurance Options</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </form>
+        </div>
     </div>
 
     <!-- Thank You Page -->
@@ -2481,6 +2647,29 @@
                 grecaptcha.reset();
                 disableSubmitButton();
             }
+        });
+
+        function showStep(stepId) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.style.display = 'none';
+            });
+            // Show requested step
+            document.getElementById(stepId).style.display = 'block';
+        }
+
+        function validateAndProceed() {
+            const consent = document.getElementById('disclaimer-consent');
+            if (consent.checked) {
+                showStep('enrollment-form-step');
+            } else {
+                alert('Please read and accept the disclaimer to proceed.');
+            }
+        }
+
+        // Enable/disable proceed button based on checkbox
+        document.getElementById('disclaimer-consent').addEventListener('change', function() {
+            document.getElementById('proceed-btn').disabled = !this.checked;
         });
     </script>
 
