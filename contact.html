@@ -58,11 +58,24 @@
         .logo {
             display: flex;
             align-items: center;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .logo h1 {
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container h1 {
             font-size: 2.2rem;
             margin-left: 15px;
+        }
+
+        .logo-container img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
         }
 
         .nav-btn {
@@ -240,23 +253,23 @@
                 padding: 10px;
             }
 
-            .logo h1 {
+            .logo-container h1 {
                 font-size: 1.6rem;
                 margin-left: 10px;
             }
 
-            .logo img {
+            .logo-container img {
                 width: 45px;
                 height: 45px;
             }
         }
 
         @media (max-width: 380px) {
-            .logo h1 {
+            .logo-container h1 {
                 font-size: 1.4rem;
             }
 
-            .logo img {
+            .logo-container img {
                 width: 35px;
                 height: 35px;
             }
