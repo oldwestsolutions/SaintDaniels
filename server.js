@@ -3,10 +3,15 @@ const path = require('path');
 const fetch = require('node-fetch');  // Make sure to install this
 const { Dropbox } = require('dropbox');
 const session = require('express-session');
+const axios = require('axios');
+
 const app = express();
 
-// Serve static files from the current directory
-app.use(express.static('./'));
+// Enable JSON parsing with increased limit
+app.use(express.json({ limit: '50mb' }));
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve the index page at root
 app.get('/', (req, res) => {
@@ -28,8 +33,11 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
-// Enable JSON parsing with increased limit
-app.use(express.json({ limit: '50mb' }));
+// Serve the enrollment page
+app.get('/enrollment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'enrollment.html'));
+});
+
 app.use(session({
     secret: 'your-session-secret',
     resave: false,
@@ -47,6 +55,9 @@ const DROPBOX_CONFIG = {
 const dbx = new Dropbox({
     accessToken: DROPBOX_CONFIG.accessToken
 });
+
+// Add reCAPTCHA secret configuration
+const RECAPTCHA_SECRET_KEY = '6LfFsvgqAAAAAFJNIANU1rZpPBBUlNlU2oZJKpEt';
 
 // OAuth endpoints
 app.get('/auth/dropbox', (req, res) => {
@@ -94,9 +105,20 @@ app.get('/auth/status', (req, res) => {
     });
 });
 
-// Upload endpoint
+// Update your upload endpoint to verify reCAPTCHA first
 app.post('/api/upload-to-dropbox', async (req, res) => {
     try {
+        // Verify reCAPTCHA first
+        const recaptchaResponse = req.body.recaptcha;
+        const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${recaptchaResponse}`;
+        
+        const recaptchaResult = await axios.post(verifyURL);
+        
+        if (!recaptchaResult.data.success) {
+            throw new Error('reCAPTCHA verification failed');
+        }
+
+        // Rest of your existing upload code...
         const { filename, content } = req.body;
         
         if (!content) {
@@ -124,10 +146,9 @@ app.post('/api/upload-to-dropbox', async (req, res) => {
         console.log('Upload successful:', response);
         res.json({ success: true });
     } catch (error) {
-        console.error('Dropbox upload error:', error);
+        console.error('Error:', error);
         res.status(500).json({ 
-            error: 'Failed to upload to Dropbox', 
-            details: error.message 
+            error: error.message || 'Failed to process request'
         });
     }
 });
