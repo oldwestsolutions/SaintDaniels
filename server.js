@@ -13,6 +13,12 @@ app.use(express.json({ limit: '50mb' }));
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Add error handling for static files
+app.use((err, req, res, next) => {
+    console.error('Static file error:', err);
+    next(err);
+});
+
 // Serve the index page at root
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -48,7 +54,7 @@ app.use(session({
 const DROPBOX_CONFIG = {
     clientId: '55yt9dc51h22wwn',
     clientSecret: 'bnszbd6yizzw5zg',
-    accessToken: 'sl.BqGXXXX'  // Replace with your access token
+    accessToken: process.env.DROPBOX_ACCESS_TOKEN || 'sl.BqGXXXX'
 };
 
 // Initialize Dropbox client
@@ -171,18 +177,22 @@ app.get('/auth/error', (req, res) => {
     res.send('Failed to authenticate with Dropbox.');
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 // Add proper error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({
-        error: 'Something went wrong!',
-        // Don't send stack traces in production
-        ...(process.env.NODE_ENV !== 'production' && { details: err.stack })
-    });
+    console.error('Server error:', err);
+    res.status(500).json({ error: 'Internal server error' });
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log('Dropbox API configured with provided keys');
+}).on('error', (err) => {
+    console.error('Server failed to start:', err);
+    process.exit(1);
 }); 
