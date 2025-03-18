@@ -8,6 +8,33 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.static(__dirname));
 
+// Clean URL routes
+app.get('/enrollment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'enrollment.html'));
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(__dirname, 'signup.html'));
+});
+
+// Update all redirects to use clean URLs
+app.get('*', (req, res, next) => {
+    if (req.path.endsWith('.html')) {
+        const cleanUrl = req.path.slice(0, -5); // Remove .html
+        res.redirect(301, cleanUrl);
+    } else {
+        next();
+    }
+});
+
 // Dropbox configuration
 const DROPBOX_CONFIG = {
     clientId: '55yt9dc51h22wwn',
