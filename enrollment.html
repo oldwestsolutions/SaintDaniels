@@ -933,6 +933,27 @@
         .form-group input:invalid + .error-message {
             display: block;
         }
+
+        .thank-you-content {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-checkmark {
+            color: var(--primary-green);
+            font-size: 64px;
+            margin: 20px 0;
+        }
+
+        .thank-you-content h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .thank-you-content p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
     </style>
 </head>
 <body>
@@ -1512,7 +1533,7 @@
                             <h4>7. Contact Information</h4>
                             <p>For questions or concerns regarding these Terms & Conditions, Privacy Policy, or Legal Disclaimer, please contact:</p>
                             <p>SaintDaniels.com Legal Compliance Team<br>
-                            📧 Email: legal@saintdaniels.com</p>
+                            📧 Email: support@saintdaniels.com</p>
                         </div>
                     </div>
 
@@ -1541,6 +1562,7 @@
                                 autocomplete="off"
                                 required
                             >
+                            <span class="error-message" id="ssn-error"></span>
                             <div class="security-notice">
                                 <i class="fas fa-lock"></i>
                                 <p>Your SSN is required to process your enrollment application. This information is transmitted over a secure, encrypted connection and protected in accordance with HIPAA guidelines.</p>
@@ -1697,6 +1719,21 @@
         </form>
     </div>
 
+    <!-- Thank You Page -->
+    <div class="form-step" id="thank_you_page" style="display: none;">
+        <div class="form-section">
+            <div class="thank-you-content">
+                <h2>Thank You for Enrolling!</h2>
+                <div class="success-checkmark">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p>Your enrollment application has been successfully submitted.</p>
+                <p>A confirmation email will be sent to your registered email address shortly.</p>
+                <p>If you have any questions, please contact us at support@saintdaniels.com</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Set current date
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
@@ -1727,7 +1764,7 @@
                     body: formData
                 });
 
-                // Then, send signature to DocuSign (you'll need to implement this endpoint)
+                // Then, send signature to DocuSign
                 await fetch('/api/docusign/sign', {
                     method: 'POST',
                     headers: {
@@ -1740,8 +1777,24 @@
                     })
                 });
 
-                alert('Enrollment submitted successfully!');
-                window.location.href = formData.get('retURL');
+                // Hide all steps
+                document.querySelectorAll('.form-step').forEach(step => {
+                    step.classList.remove('active');
+                });
+
+                // Show thank you page
+                const thankYouPage = document.getElementById('thank_you_page');
+                thankYouPage.style.display = 'block';
+                thankYouPage.classList.add('active');
+
+                // Optional: Scroll to top
+                window.scrollTo(0, 0);
+
+                // Optional: Redirect to homepage after 5 seconds
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 5000);
+
             } catch (error) {
                 console.error('Error:', error);
                 alert('There was an error submitting your enrollment. Please try again.');
@@ -1934,12 +1987,12 @@
             }
             
             if (employer.checked) {
-                // Show Employer notice
+                // Show Employer notice but allow continuation
                 showStep('employer_notice');
                 return false;
             }
             
-            // If "No" is selected or no coverage is selected
+            // If no coverage is selected or "No" is selected
             return true;
         }
 
@@ -1976,6 +2029,16 @@
         // SSN input - only allow numbers
         document.getElementById('ssn').addEventListener('input', function(e) {
             this.value = this.value.replace(/\D/g, '').slice(0, 9);
+            const errorElement = document.getElementById('ssn-error');
+            
+            if (this.value.length !== 9) {
+                errorElement.textContent = 'Please enter a valid 9-digit Social Security Number';
+                errorElement.style.display = 'block';
+                this.setCustomValidity('SSN must be 9 digits');
+            } else {
+                errorElement.style.display = 'none';
+                this.setCustomValidity('');
+            }
         });
 
         // Income formatting with commas
