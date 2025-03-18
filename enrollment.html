@@ -1518,10 +1518,19 @@
 
                     <div class="signature-agreement">
                         <p>By typing your full name below, you confirm that you have read, understood, and agreed to these Terms & Conditions, Privacy Notice, and Legal Disclaimer. This constitutes your legal electronic signature.</p>
+                        
                         <div class="form-group">
-                            <label for="signature">Full Name (E-Signature) *</label>
-                            <input id="signature" name="signature" type="text" required>
+                            <label for="signature">Full Name (must match exactly as entered) *</label>
+                            <input 
+                                id="signature" 
+                                name="signature" 
+                                type="text" 
+                                required
+                            >
+                            <span class="error-message" id="signature-error"></span>
                         </div>
+
+                        <!-- Moved SSN Field Here -->
                         <div class="form-group secure-ssn">
                             <label for="ssn">Social Security Number (Required for Enrollment) *</label>
                             <input 
@@ -1531,14 +1540,12 @@
                                 maxlength="9"
                                 autocomplete="off"
                                 required
-                                placeholder="Enter your 9-digit SSN"
                             >
                             <div class="security-notice">
                                 <i class="fas fa-lock"></i>
                                 <p>Your SSN is required to process your enrollment application. This information is transmitted over a secure, encrypted connection and protected in accordance with HIPAA guidelines.</p>
                             </div>
                         </div>
-                        <p class="signature-date">Date: <span id="currentDate"></span></p>
                     </div>
                     
                     <!-- reCAPTCHA -->
@@ -1971,17 +1978,25 @@
             this.value = this.value.replace(/\D/g, '').slice(0, 9);
         });
 
-        // Income formatting
+        // Income formatting with commas
         document.getElementById('income').addEventListener('input', function(e) {
-            // Remove any non-digits
-            let value = this.value.replace(/[^\d]/g, '');
+            // Remove any non-digits/decimal
+            let value = this.value.replace(/[^\d.]/g, '');
             
-            // Format with commas
+            // Ensure only one decimal point
+            const parts = value.split('.');
+            if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
+            
+            // Format with commas and two decimal places
             if (value) {
-                value = parseInt(value).toLocaleString('en-US');
+                const num = parseFloat(value);
+                if (!isNaN(num)) {
+                    this.value = num.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                }
             }
-            
-            this.value = value;
         });
 
         // Phone number formatting
@@ -2140,6 +2155,23 @@
                 return true;
             }
         }
+
+        // Signature validation
+        document.getElementById('signature').addEventListener('input', function(e) {
+            const firstName = document.getElementById('first_name').value;
+            const lastName = document.getElementById('last_name').value;
+            const fullName = `${firstName} ${lastName}`;
+            const errorElement = document.getElementById('signature-error');
+            
+            if (this.value !== fullName && this.value.length > 0) {
+                errorElement.textContent = 'Signature must match your first and last name exactly';
+                errorElement.style.display = 'block';
+                this.setCustomValidity('Names must match');
+            } else {
+                errorElement.style.display = 'none';
+                this.setCustomValidity('');
+            }
+        });
     </script>
 
     <!-- Add Google Places API -->
