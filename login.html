@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Saint Daniels Healthcare Rewards</title>
+    <title>Login - Saint Daniels Healthcare</title>
     <style>
         /* Variables */
         :root {
@@ -42,35 +42,42 @@
         /* Header Styles */
         header {
             background-color: var(--primary-green);
-            color: var(--primary-tan);
-            padding: 15px 0;
-            border-bottom: 5px solid var(--gold);
+            padding: 10px 0;
+            border-bottom: 2px solid var(--gold);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .logo {
+        .logo-container {
             display: flex;
             align-items: center;
-            text-decoration: none;
-            color: inherit;
+            gap: 15px;
         }
 
-        .custom-logo {
-            width: 60px;
-            height: 60px;
+        .shield-logo {
+            width: 40px;  /* Smaller size */
+            height: 40px; /* Smaller size */
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            margin-right: 15px;
         }
 
-        .logo h1 {
-            font-size: 2.2rem;
-            margin-left: 15px;
+        .brand-text {
+            color: var(--gold);
+            font-size: 24px;  /* Slightly smaller text */
+            font-family: 'Garamond', serif;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Login Form Styles */
@@ -543,17 +550,62 @@
                 opacity: 1;
             }
         }
+
+        /* Add Hero Styles */
+        .hero {
+            height: 500px;
+            background: #365940;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--light-tan);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-image {
+            height: 500px;
+            background: linear-gradient(to right,
+                rgba(26, 71, 42, 0.2),
+                rgba(26, 71, 42, 0)
+            ), url('Poland.jpeg') center/cover no-repeat !important;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body>
-<header>
-    <div class="container header-container">
-        <a href="index.html" class="logo">
-            <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="custom-logo">
-            <h1>Saint Daniels</h1>
-        </a>
-    </div>
-</header>
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <div class="shield-logo">
+                    <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                </div>
+                <h1 class="brand-text">SAINT DANIELS</h1>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-image"></div>
+            <div class="hero-content">
+                <h2>Welcome Back</h2>
+                <p style="font-size: 1.4rem; font-weight: bold; color: var(--primary-green);">Royal Member</p>
+            </div>
+        </div>
+    </section>
 
     <section class="login-section">
         <div class="login-container">

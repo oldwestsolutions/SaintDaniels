@@ -66,25 +66,56 @@
         /* Header Styles */
         header {
             background-color: var(--primary-green);
-            color: var(--primary-tan);
-            padding: 15px 0;
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        /* Add class for hidden header */
-        header.hidden {
-            transform: translateY(-100%);
+            padding: 10px 0;
+            border-bottom: 2px solid var(--gold);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .shield-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
+            font-family: 'Garamond', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn {
+            background-color: var(--gold);
+            color: var(--primary-green);
+            padding: 8px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--dark-gold);
+            transform: translateY(-2px);
         }
 
         .logo {
@@ -211,7 +242,7 @@
             background: linear-gradient(to right,
                 rgba(26, 71, 42, 0.2),
                 rgba(26, 71, 42, 0)
-            ), url('Poland.jpeg') center 25%/cover no-repeat;
+            ), url('saint daniels logo.jpeg') center/contain no-repeat !important;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
@@ -1070,12 +1101,17 @@
     </script>
     <!-- Header -->
     <header>
-        <div class="logo-container">
-            <img src="images/logo.png" alt="Saint Daniels Logo" class="logo">
+        <div class="container header-container">
+            <div class="logo-container">
+                <div class="shield-logo">
+                    <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                </div>
+                <h1 class="brand-text">SAINT DANIELS</h1>
+            </div>
+            <nav>
+                <button onclick="window.location.href='/login'" class="login-btn">Login</button>
+            </nav>
         </div>
-        <nav>
-            <button onclick="window.location.href='/login'" class="login-btn">Login</button>
-        </nav>
     </header>
 
     <!-- Hero Section -->
