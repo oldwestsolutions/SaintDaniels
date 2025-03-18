@@ -1037,6 +1037,18 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
+
+        /* Add to existing styles */
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo h3 {
+            color: var(--gold);
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -1254,7 +1266,10 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Saint Daniels</h3>
+                    <div class="footer-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo" style="width: 40px; height: 40px; object-fit: contain; margin-right: 10px;">
+                        <h3>Saint Daniels</h3>
+                    </div>
                     <p>Elevating healthcare experiences with rewards fit for royalty.</p>
                     <div class="social-icons">
                         <a href="#" class="social-icon">f</a>
