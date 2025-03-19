@@ -27,283 +27,307 @@
 
         body {
             background-color: var(--light-tan);
+            padding-top: 90px;
             color: var(--primary-green);
-            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
+        /* Header styles (same as index.html) */
         header {
             background-color: var(--primary-green);
-            color: var(--primary-tan);
-            padding: 15px 0;
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
+            gap: 20px;
         }
 
-        .logo-container h1 {
-            font-size: 2.2rem;
-            margin-left: 15px;
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 20px;
         }
 
-        .logo-container img {
-            width: 60px;
-            height: 60px;
+        .shield-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
 
-        .nav-btn {
-            background: linear-gradient(to right, var(--gold), var(--dark-gold));
-            color: var(--primary-green);
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: 2px solid var(--gold);
+            margin: 0;
         }
 
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(198, 169, 109, 0.3);
-            background: linear-gradient(to right, var(--dark-gold), var(--gold));
+        /* Contact Page Specific Styles */
+        .contact-hero {
+            background: linear-gradient(rgba(26, 71, 42, 0.9), rgba(26, 71, 42, 0.9)), url('Poland.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            text-align: center;
+            color: var(--light-tan);
         }
 
-        /* Contact Section Styles */
-        .contact-section {
-            padding: 80px 0;
-            min-height: calc(100vh - 200px);
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(26, 71, 42, 0.05), rgba(198, 169, 109, 0.1));
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: linear-gradient(to bottom right, white, var(--light-tan));
-            padding: 60px 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            border: 1px solid rgba(198, 169, 109, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--gold), var(--primary-green));
-        }
-
-        .section-title {
-            margin-bottom: 50px;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        .section-title h2 {
-            font-size: 2.8rem;
-            color: var(--primary-green);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .section-title p {
-            font-size: 1.2rem;
-            color: var(--secondary-green);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
         }
 
         .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            align-items: center;
-            animation: fadeInUp 0.8s ease-out;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .contact-method {
+        .info-item {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 20px;
-            font-size: 1.4rem;
-            padding: 20px 30px;
+            justify-content: center;
+            color: var(--primary-green);
+            font-size: 20px;
+        }
+
+        .info-content h3 {
+            color: var(--primary-green);
+            margin-bottom: 5px;
+        }
+
+        .info-content p {
+            color: var(--secondary-green);
+            line-height: 1.6;
+        }
+
+        .contact-form {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--light-green);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 5px rgba(198, 169, 109, 0.3);
+        }
+
+        .submit-btn {
+            background: var(--gold);
+            color: var(--primary-green);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
-            max-width: 400px;
         }
 
-        .contact-method:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .submit-btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
         }
 
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            transition: transform 0.3s ease;
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
         }
 
-        .contact-method:hover .contact-icon {
-            transform: scale(1.1);
-        }
-
-        .contact-link {
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--primary-green);
             text-decoration: none;
             transition: all 0.3s ease;
-            font-weight: bold;
-            position: relative;
         }
 
-        .contact-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
+        .social-link:hover {
+            background: var(--dark-gold);
+            transform: translateY(-3px);
         }
 
-        .contact-link:hover {
-            color: var(--gold);
-        }
-
-        .contact-link:hover::after {
-            width: 100%;
-        }
-
-        /* Add animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             .contact-container {
-                padding: 20px;
+                grid-template-columns: 1fr;
             }
 
-            .section-title h2 {
-                font-size: 2rem;
+            .contact-hero h1 {
+                font-size: 2.5rem;
             }
 
             .header-container {
-                flex-direction: row;
-                padding: 10px;
+                padding: 0 20px;
             }
 
-            .logo-container h1 {
-                font-size: 1.6rem;
-                margin-left: 10px;
-            }
-
-            .logo-container img {
-                width: 45px;
-                height: 45px;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .logo-container h1 {
-                font-size: 1.4rem;
-            }
-
-            .logo-container img {
-                width: 35px;
-                height: 35px;
+            .brand-text {
+                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <div class="container header-container">
-            <a href="/" class="logo">
-                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 60px; height: 60px; object-fit: contain;">
-                <h1>Saint Daniels</h1>
-            </a>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="contact-section">
-        <div class="container contact-container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>We're here to help with any questions about your healthcare rewards journey.</p>
-            </div>
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <h1>Contact The Kingdom</h1>
+        <p>Have questions about our royal healthcare rewards? We're here to help you on your journey to better health.</p>
+    </section>
 
-            <div class="contact-info">
-                <div class="contact-method">
-                    <span class="contact-icon">📧</span>
-                    <a href="mailto:support@saintdaniels.com" class="contact-link">support@saintdaniels.com</a>
+    <!-- Contact Content -->
+    <div class="contact-container">
+        <div class="contact-info">
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <h3>Our Location</h3>
+                    <p>123 Royal Healthcare Ave<br>Chicago, IL 60601</p>
                 </div>
-                <div class="contact-method">
-                    <span class="contact-icon">📞</span>
-                    <a href="tel:+18883381832" class="contact-link">(888) 338-1832</a>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                    <h3>Phone</h3>
+                    <p>+1 (312) 555-0123</p>
                 </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-content">
+                    <h3>Email</h3>
+                    <p>contact@saintdaniels.com</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">⏰</div>
+                <div class="info-content">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM</p>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link">FB</a>
+                <a href="#" class="social-link">IN</a>
+                <a href="#" class="social-link">TW</a>
+                <a href="#" class="social-link">IG</a>
             </div>
         </div>
-    </section>
+
+        <div class="contact-form">
+            <form id="contactForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html> 

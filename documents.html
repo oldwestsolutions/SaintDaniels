@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents - Saint Daniels Healthcare Rewards</title>
+    <link rel="icon" type="image/jpeg" href="saint daniels logo.jpeg">
+    <style>
+        :root {
+            --primary-green: #1a472a;
+            --secondary-green: #2a623d;
+            --light-green: #5d8b75;
+            --primary-tan: #d8c3a5;
+            --light-tan: #e8e4d9;
+            --gold: #c6a96d;
+            --dark-gold: #a08c5b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--light-tan);
+            padding-top: 90px;
+            color: var(--primary-green);
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--primary-green);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 20px;
+        }
+
+        .shield-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        /* Documents Page Specific Styles */
+        .documents-hero {
+            background: linear-gradient(rgba(26, 71, 42, 0.9), rgba(26, 71, 42, 0.9)), url('Poland.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            text-align: center;
+            color: var(--light-tan);
+        }
+
+        .documents-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .documents-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .documents-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .document-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .document-section h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .document-card {
+            background: var(--light-tan);
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .document-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .document-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-green);
+        }
+
+        .document-card p {
+            color: var(--secondary-green);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--gold);
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .documents-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .header-container {
+                padding: 0 20px;
+            }
+
+            .brand-text {
+                font-size: 20px;
+            }
+
+            .document-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="/" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Documents Hero Section -->
+    <section class="documents-hero">
+        <h1>Royal Documents</h1>
+        <p>Access all important documents and forms related to your healthcare rewards program.</p>
+    </section>
+
+    <!-- Documents Content -->
+    <div class="documents-container">
+        <!-- Program Documents -->
+        <div class="document-section">
+            <h2>Program Documents</h2>
+            <div class="document-grid">
+                <div class="document-card">
+                    <div class="document-icon">📄</div>
+                    <h3>Member Handbook</h3>
+                    <p>Complete guide to your healthcare rewards program benefits and features.</p>
+                    <a href="#" class="download-btn">Download PDF</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-icon">📋</div>
+                    <h3>Benefits Guide</h3>
+                    <p>Detailed information about available rewards and how to earn them.</p>
+                    <a href="#" class="download-btn">Download PDF</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-icon">📝</div>
+                    <h3>Enrollment Forms</h3>
+                    <p>Required forms for program enrollment and participation.</p>
+                    <a href="#" class="download-btn">Download PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Documents -->
+        <div class="document-section">
+            <h2>Legal Documents</h2>
+            <div class="document-grid">
+                <div class="document-card">
+                    <div class="document-icon">⚖️</div>
+                    <h3>Terms & Conditions</h3>
+                    <p>Legal terms governing program participation and benefits.</p>
+                    <a href="#" class="download-btn">Download PDF</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-icon">🔒</div>
+                    <h3>Privacy Policy</h3>
+                    <p>Information about how we protect and handle your data.</p>
+                    <a href="#" class="download-btn">Download PDF</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-icon">📜</div>
+                    <h3>HIPAA Notice</h3>
+                    <p>Healthcare privacy practices and your rights under HIPAA.</p>
+                    <a href="#" class="download-btn">Download PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

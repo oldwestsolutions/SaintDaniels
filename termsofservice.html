@@ -37,103 +37,99 @@
 
         body {
             background-color: var(--light-tan);
+            padding-top: 90px;
             color: var(--primary-green);
-            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
         header {
             background-color: var(--primary-green);
-            color: var(--primary-tan);
-            padding: 15px 0;
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-link {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: inherit;
+            gap: 20px;
         }
 
-        .logo h1 {
-            font-size: 2.2rem;
-            margin-left: 15px;
+        .shield-logo {
+            width: 50px;
+            height: 50px;
         }
 
-        .nav-btn {
-            background-color: var(--gold);
-            color: var(--primary-green);
-            padding: 8px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
-        /* Terms of Service Styles */
-        .terms-section {
-            padding: 80px 0;
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
         }
 
         .terms-container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: white;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .terms-section {
+            background: white;
             padding: 40px;
             border-radius: 10px;
+            margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
+        .terms-section h2 {
             color: var(--primary-green);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
         }
 
-        .terms-content h3 {
-            color: var(--primary-green);
-            font-size: 1.5rem;
-            margin: 30px 0 15px;
-        }
-
-        .terms-content p {
-            margin-bottom: 15px;
-        }
-
-        .terms-content ul {
-            margin-bottom: 15px;
-            padding-left: 20px;
-        }
-
-        .terms-content li {
-            margin-bottom: 10px;
-        }
-
-        .last-updated {
-            font-style: italic;
+        .terms-section h3 {
             color: var(--secondary-green);
-            margin-bottom: 30px;
+            margin: 20px 0 10px;
+            font-size: 1.4rem;
+        }
+
+        .terms-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .terms-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .terms-section li {
+            margin-bottom: 10px;
         }
 
         /* Responsive Design */
@@ -176,80 +172,60 @@
 </head>
 <body>
     <header>
-        <div class="container header-container">
-            <a href="/" class="logo">
-                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 60px; height: 60px; object-fit: contain;">
-                <h1>Saint Daniels</h1>
-            </a>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="terms-section">
-        <div class="container terms-container">
-            <div class="section-title">
-                <h2>Terms of Service</h2>
-                <p class="last-updated">Last Updated: March 14, 2024</p>
-            </div>
+    <div class="terms-container">
+        <div class="terms-section">
+            <h2>Terms of Service</h2>
+            <p>Last updated: January 1, 2024</p>
 
-            <div class="terms-content">
-                <h3>1. Acceptance of Terms</h3>
-                <p>By accessing and using Saint Daniels Healthcare Rewards program, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing and using Saint Daniels Healthcare Rewards, you agree to be bound by these Terms of Service.</p>
 
-                <h3>2. Program Eligibility</h3>
-                <p>To be eligible for the Saint Daniels Healthcare Rewards program, you must:</p>
-                <ul>
-                    <li>Be at least 18 years of age</li>
-                    <li>Have a valid healthcare provider relationship</li>
-                    <li>Maintain an active account in good standing</li>
-                    <li>Reside in an eligible service area</li>
-                </ul>
+            <h3>2. Program Eligibility</h3>
+            <p>To participate in our healthcare rewards program, you must:</p>
+            <ul>
+                <li>Be at least 18 years of age</li>
+                <li>Have valid healthcare coverage</li>
+                <li>Provide accurate personal information</li>
+                <li>Comply with all program rules and guidelines</li>
+            </ul>
 
-                <h3>3. Points and Rewards</h3>
-                <p>Points earned through the program are:</p>
-                <ul>
-                    <li>Non-transferable and have no cash value</li>
-                    <li>Valid for 12 months from the date earned</li>
-                    <li>Subject to verification and approval</li>
-                    <li>Redeemable only through authorized channels</li>
-                </ul>
+            <h3>3. Points and Rewards</h3>
+            <p>Points are earned through:</p>
+            <ul>
+                <li>Qualifying healthcare visits and procedures</li>
+                <li>Wellness activities and preventive care</li>
+                <li>Program participation and engagement</li>
+            </ul>
 
-                <h3>4. Account Responsibilities</h3>
-                <p>You are responsible for:</p>
-                <ul>
-                    <li>Maintaining accurate account information</li>
-                    <li>Protecting your account credentials</li>
-                    <li>Reporting unauthorized account activity</li>
-                    <li>Complying with program rules and guidelines</li>
-                </ul>
+            <h3>4. Point Redemption</h3>
+            <p>Points may be redeemed for rewards subject to:</p>
+            <ul>
+                <li>Available point balance</li>
+                <li>Reward availability</li>
+                <li>Program terms and conditions</li>
+            </ul>
 
-                <h3>5. Program Modifications</h3>
-                <p>Saint Daniels Healthcare Rewards reserves the right to:</p>
-                <ul>
-                    <li>Modify or terminate the program at any time</li>
-                    <li>Change point values and reward offerings</li>
-                    <li>Update eligibility requirements</li>
-                    <li>Adjust program rules and benefits</li>
-                </ul>
+            <h3>5. Account Security</h3>
+            <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account.</p>
 
-                <h3>6. Limitation of Liability</h3>
-                <p>Saint Daniels Healthcare Rewards is not liable for:</p>
-                <ul>
-                    <li>Technical failures or service interruptions</li>
-                    <li>Lost or expired points</li>
-                    <li>Unauthorized account access</li>
-                    <li>Third-party reward fulfillment issues</li>
-                </ul>
+            <h3>6. Program Changes</h3>
+            <p>Saint Daniels reserves the right to modify or terminate the rewards program at any time, with or without notice.</p>
 
-                <h3>7. Privacy and Data</h3>
-                <p>Your use of the program is also governed by our Privacy Policy. By participating in the program, you consent to the collection and use of your data as described in the Privacy Policy.</p>
-
-                <h3>8. Contact Information</h3>
-                <p>For questions about these Terms of Service, please contact us at:</p>
-                <p>Email: terms@saintdaniels.com<br>
-                Phone: (555) 123-4567<br>
-                Address: 123 Healthcare Ave, Medical District, NY 10001</p>
-            </div>
+            <h3>7. Contact Information</h3>
+            <p>For questions about these terms, please contact us at terms@saintdaniels.com</p>
         </div>
-    </section>
+    </div>
 </body>
 </html> 

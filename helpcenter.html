@@ -25,256 +25,144 @@
 
         body {
             background-color: var(--light-tan);
+            padding-top: 90px;
             color: var(--primary-green);
-            line-height: 1.6;
         }
 
-        /* Header Styles */
+        /* Header styles */
         header {
             background-color: var(--primary-green);
-            color: var(--primary-tan);
-            padding: 15px 0;
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-link {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: inherit;
+            gap: 20px;
         }
 
-        .nav-btn {
-            background: linear-gradient(to right, var(--gold), var(--dark-gold));
-            color: var(--primary-green);
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
+        .shield-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        /* Help Center Specific Styles */
-        .help-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, rgba(26, 71, 42, 0.05), rgba(198, 169, 109, 0.1));
+            margin: 0;
         }
 
         .help-container {
-            background: linear-gradient(to bottom right, white, var(--light-tan));
-            padding: 60px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(198, 169, 109, 0.2);
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-size: 2.8rem;
-            color: var(--primary-green);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .help-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .help-category {
+        .faq-section {
             background: white;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .help-category h3 {
-            color: var(--gold);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 2px solid var(--light-green);
-            padding-bottom: 10px;
-        }
-
-        .faq-list {
-            list-style: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .faq-item {
             margin-bottom: 20px;
-            padding: 20px;
-            background: var(--light-tan);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--primary-tan);
+            padding-bottom: 20px;
         }
 
-        .faq-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .faq-question {
-            font-weight: bold;
+        .faq-item h3 {
             color: var(--primary-green);
             margin-bottom: 10px;
-        }
-
-        .faq-answer {
-            color: var(--secondary-green);
-            display: none;
-            padding-top: 10px;
-            border-top: 1px solid var(--gold);
+            font-size: 1.2rem;
         }
 
         .contact-support {
             text-align: center;
-            margin-top: 60px;
             padding: 40px;
-            background: var(--primary-green);
-            color: var(--primary-tan);
-            border-radius: 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .contact-support h3 {
-            color: var(--gold);
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-
-        .support-button {
+        .support-btn {
             display: inline-block;
-            padding: 15px 30px;
+            padding: 12px 30px;
             background: var(--gold);
             color: var(--primary-green);
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .support-button:hover {
-            background: var(--dark-gold);
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 768px) {
-            .help-container {
-                padding: 30px;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .help-category {
-                padding: 20px;
-            }
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container header-container">
-            <a href="/" class="logo">
-                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 60px; height: 60px; object-fit: contain;">
-                <h1>Saint Daniels</h1>
-            </a>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="help-section">
-        <div class="container help-container">
-            <div class="section-title">
-                <h2>Help Center</h2>
-                <p>Find answers to your questions about Saint Daniels Healthcare Rewards</p>
+    <div class="help-container">
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>How do I earn points?</h3>
+                <p>Points are earned through various healthcare activities, including doctor visits, preventive care, and wellness activities.</p>
             </div>
-
-            <div class="help-categories">
-                <div class="help-category">
-                    <h3>Getting Started</h3>
-                    <ul class="faq-list">
-                        <li class="faq-item">
-                            <div class="faq-question">How do I sign up for Saint Daniels?</div>
-                            <div class="faq-answer">Create your account by selecting your insurance carrier and completing the verification process. You'll need to sign a DocuSign agreement to activate your rewards program membership.</div>
-                        </li>
-                        <li class="faq-item">
-                            <div class="faq-question">What are the eligibility requirements?</div>
-                            <div class="faq-answer">You must be enrolled with a participating insurance carrier and meet their specific eligibility requirements. Keep your account information up to date and maintain active status.</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="help-category">
-                    <h3>Rewards Program</h3>
-                    <ul class="faq-list">
-                        <li class="faq-item">
-                            <div class="faq-question">How do I earn rewards?</div>
-                            <div class="faq-answer">Primary rewards are provided through your selected insurance carrier. Additional rewards become available through our program as you participate in healthcare activities.</div>
-                        </li>
-                        <li class="faq-item">
-                            <div class="faq-question">When do I receive my rewards?</div>
-                            <div class="faq-answer">Rewards are credited to your account after completing eligible activities and may vary based on your insurance carrier's specific program terms.</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="help-category">
-                    <h3>Account Management</h3>
-                    <ul class="faq-list">
-                        <li class="faq-item">
-                            <div class="faq-question">How do I update my account information?</div>
-                            <div class="faq-answer">Log in to your account dashboard to update your personal information, insurance details, and communication preferences.</div>
-                        </li>
-                        <li class="faq-item">
-                            <div class="faq-question">What if I change insurance carriers?</div>
-                            <div class="faq-answer">Contact our support team to update your insurance information and ensure continued program eligibility.</div>
-                        </li>
-                    </ul>
-                </div>
+            <div class="faq-item">
+                <h3>How do I redeem my rewards?</h3>
+                <p>Log into your account, navigate to the rewards section, and select the reward you'd like to redeem with your available points.</p>
             </div>
-
-            <div class="contact-support">
-                <h3>Need Additional Help?</h3>
-                <p>Our support team is here to assist you with any questions or concerns.</p>
-                <a href="/contact" class="support-button">Contact Support</a>
+            <div class="faq-item">
+                <h3>What rewards are available?</h3>
+                <p>Rewards include health products, fitness memberships, wellness services, and more. Check our rewards catalog for current offerings.</p>
             </div>
         </div>
-    </section>
 
-    <script>
-        // Add interactivity to FAQ items
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const answer = item.querySelector('.faq-answer');
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-    </script>
+        <div class="contact-support">
+            <h2>Need More Help?</h2>
+            <p>Our royal support team is here to assist you</p>
+            <a href="contact.html" class="support-btn">Contact Support</a>
+        </div>
+    </div>
 </body>
 </html> 

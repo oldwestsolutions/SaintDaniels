@@ -25,265 +25,207 @@
 
         body {
             background-color: var(--light-tan);
+            padding-top: 90px;
             color: var(--primary-green);
-            line-height: 1.6;
         }
 
-        /* Header Styles */
         header {
             background-color: var(--primary-green);
-            color: var(--primary-tan);
-            padding: 15px 0;
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-link {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: inherit;
+            gap: 20px;
         }
 
-        .nav-btn {
-            background: linear-gradient(to right, var(--gold), var(--dark-gold));
-            color: var(--primary-green);
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
+        .shield-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            margin: 0;
         }
 
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(198, 169, 109, 0.3);
-        }
-
-        /* About Section Styles */
-        .about-section {
+        .about-hero {
+            background: linear-gradient(rgba(26, 71, 42, 0.9), rgba(26, 71, 42, 0.9)), url('Poland.jpeg');
+            background-size: cover;
+            background-position: center;
             padding: 80px 0;
-            background: linear-gradient(135deg, rgba(26, 71, 42, 0.05), rgba(198, 169, 109, 0.1));
+            text-align: center;
+            color: var(--light-tan);
+        }
+
+        .about-hero h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 20px;
         }
 
         .about-container {
-            background: linear-gradient(to bottom right, white, var(--light-tan));
-            padding: 60px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(198, 169, 109, 0.2);
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.8s ease-out;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
         }
 
-        .about-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--gold), var(--primary-green));
+        .about-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-size: 2.8rem;
+        .about-section h2 {
             color: var(--primary-green);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
         }
 
-        .about-content {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .about-image {
-            height: 400px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .about-text {
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            border: 1px solid rgba(198, 169, 109, 0.2);
+        .about-section p {
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
         .values-grid {
-            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .value-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
+            background: var(--light-tan);
+            padding: 20px;
+            border-radius: 8px;
             text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(198, 169, 109, 0.2);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: 0 auto;
         }
 
-        .value-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .value-image {
-            height: 300px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .heritage-section {
-            text-align: center;
-            margin: 60px 0;
-            padding: 40px;
-            background: linear-gradient(to right, rgba(26, 71, 42, 0.05), rgba(198, 169, 109, 0.1));
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(198, 169, 109, 0.2);
-        }
-
-        .heritage-section h3 {
-            font-size: 2.2rem;
+        .value-card h3 {
             color: var(--primary-green);
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
         }
 
-        .heritage-section p {
-            font-size: 1.2rem;
-            color: var(--secondary-green);
-            max-width: 900px;
-            margin: 0 auto 20px;
-            line-height: 1.8;
-        }
-
-        .mission-section {
+        .team-section {
             text-align: center;
-            margin: 60px 0;
-            padding: 40px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
-        .mission-section h3 {
-            font-size: 2rem;
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
             color: var(--primary-green);
-            margin-bottom: 20px;
+            margin-bottom: 5px;
         }
 
-        .mission-section p {
-            font-size: 1.2rem;
+        .team-member p {
             color: var(--secondary-green);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .about-content,
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .about-content {
-                gap: 20px;
-            }
-
-            .mission-section {
-                padding: 20px;
-                margin: 30px 0;
-            }
-
-            .heritage-section {
-                padding: 30px;
-                margin: 30px 0;
-            }
-
-            .heritage-section h3 {
-                font-size: 1.8rem;
-            }
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container header-container">
-            <a href="/" class="logo">
-                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 60px; height: 60px; object-fit: contain;">
-                <h1>Saint Daniels</h1>
-            </a>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="about-section">
-        <div class="container about-container">
-            <div class="section-title">
-                <h2>About Us</h2>
-                <p>A Legacy of Royal Healthcare Excellence</p>
-            </div>
+    <section class="about-hero">
+        <h1>Our Royal Legacy</h1>
+        <p>Transforming healthcare rewards since 2023</p>
+    </section>
 
-            <div class="about-content">
-                <div class="about-image" style="background-image: url('Poland2.jpeg');"></div>
-                <div class="about-text">
-                    <h3>Our Story</h3>
-                    <p>Saint Daniels Healthcare Rewards emerged from a vision to transform the healthcare experience. We believe that every individual deserves not just quality healthcare, but a rewarding journey towards wellness. Our program combines traditional healthcare excellence with modern rewards innovation, creating a unique ecosystem where health and benefits converge.</p>
-                    <p>Drawing inspiration from Saint Daniel, a 12th-century healer renowned for providing exceptional care to both royalty and common folk alike, we've built a platform that honors this legacy while embracing the future of healthcare.</p>
+    <div class="about-container">
+        <div class="about-section">
+            <h2>Our Story</h2>
+            <p>Saint Daniels Healthcare Rewards was founded with a vision to revolutionize the healthcare experience. We believe that taking care of your health should be rewarding, and we're committed to making that belief a reality for our members.</p>
+            <p>Our innovative rewards program encourages and celebrates healthy choices, preventive care, and wellness activities. By combining healthcare with rewards, we've created a unique ecosystem that benefits both our members and healthcare providers.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>Excellence</h3>
+                    <p>Delivering the highest quality healthcare rewards program</p>
+                </div>
+                <div class="value-card">
+                    <h3>Innovation</h3>
+                    <p>Continuously improving our services and member benefits</p>
+                </div>
+                <div class="value-card">
+                    <h3>Integrity</h3>
+                    <p>Operating with transparency and ethical standards</p>
                 </div>
             </div>
-
-            <div class="heritage-section">
-                <h3>Our Royal Heritage</h3>
-                <p>Following the noble tradition of Saint Daniel, our mission is to empower individuals to take control of their health journey while being recognized and rewarded for their commitment to wellness. Through our premier healthcare partnerships, we ensure each member receives care and benefits worthy of royalty.</p>
-                <p>We understand that healthcare is more than just treating illness - it's about fostering a lifestyle of wellness and prevention. Our comprehensive approach combines cutting-edge medical practices with time-honored wisdom, creating a healthcare experience that truly stands apart.</p>
-            </div>
         </div>
-    </section>
+
+        <div class="about-section">
+            <h2>Our Mission</h2>
+            <p>To empower individuals to take control of their healthcare journey through an innovative rewards program that recognizes and celebrates healthy choices.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Vision</h2>
+            <p>To be the leading healthcare rewards program, setting the standard for how people engage with their healthcare decisions and creating a healthier future for all.</p>
+        </div>
+    </div>
 </body>
 </html> 

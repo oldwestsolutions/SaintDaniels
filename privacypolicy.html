@@ -37,53 +37,99 @@
 
         body {
             background-color: var(--light-tan);
+            padding-top: 90px;
             color: var(--primary-green);
-            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
         header {
             background-color: var(--primary-green);
-            color: var(--primary-tan);
-            padding: 15px 0;
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-link {
             display: flex;
             align-items: center;
             text-decoration: none;
-            color: inherit;
+            gap: 20px;
         }
 
-        .logo h1 {
-            font-size: 2.2rem;
-            margin-left: 15px;
+        .shield-logo {
+            width: 50px;
+            height: 50px;
         }
 
-        .nav-btn {
-            background-color: var(--gold);
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .privacy-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .privacy-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .privacy-section h2 {
             color: var(--primary-green);
-            padding: 8px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .privacy-section h3 {
+            color: var(--secondary-green);
+            margin: 20px 0 10px;
+            font-size: 1.4rem;
+        }
+
+        .privacy-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .privacy-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .privacy-section li {
+            margin-bottom: 10px;
         }
 
         /* Privacy Policy Styles */
@@ -176,71 +222,63 @@
 </head>
 <body>
     <header>
-        <div class="container header-container">
-            <a href="/" class="logo">
-                <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" style="width: 60px; height: 60px; object-fit: contain;">
-                <h1>Saint Daniels</h1>
-            </a>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="policy-section">
-        <div class="container policy-container">
-            <div class="section-title">
-                <h2>Privacy Policy</h2>
-                <p class="last-updated">Last Updated: March 14, 2024</p>
-            </div>
+    <div class="privacy-container">
+        <div class="privacy-section">
+            <h2>Privacy Policy</h2>
+            <p>Last updated: January 1, 2024</p>
 
-            <div class="policy-content">
-                <h3>Introduction</h3>
-                <p>Saint Daniels Healthcare Rewards ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our healthcare rewards program and related services.</p>
+            <h3>Information We Collect</h3>
+            <p>We collect information that you provide directly to us, including:</p>
+            <ul>
+                <li>Personal information (name, email address, phone number)</li>
+                <li>Healthcare information necessary for program participation</li>
+                <li>Account and payment information</li>
+            </ul>
 
-                <h3>Information We Collect</h3>
-                <p>We collect information that you provide directly to us, including:</p>
-                <ul>
-                    <li>Personal identification information (name, email address, phone number)</li>
-                    <li>Healthcare provider information</li>
-                    <li>Health and wellness activity data</li>
-                    <li>Account preferences and settings</li>
-                </ul>
+            <h3>How We Use Your Information</h3>
+            <p>We use the information we collect to:</p>
+            <ul>
+                <li>Provide and maintain our healthcare rewards program</li>
+                <li>Process your rewards and redemptions</li>
+                <li>Send you important updates about our services</li>
+                <li>Improve our services and develop new features</li>
+            </ul>
 
-                <h3>How We Use Your Information</h3>
-                <p>We use the information we collect to:</p>
-                <ul>
-                    <li>Operate and maintain our rewards program</li>
-                    <li>Track and award points for eligible activities</li>
-                    <li>Communicate with you about your account and rewards</li>
-                    <li>Improve our services and user experience</li>
-                    <li>Protect against fraudulent or unauthorized activity</li>
-                </ul>
+            <h3>Information Sharing</h3>
+            <p>We do not sell your personal information. We may share your information with:</p>
+            <ul>
+                <li>Healthcare providers involved in your care</li>
+                <li>Partners who help us operate our program</li>
+                <li>Legal authorities when required by law</li>
+            </ul>
 
-                <h3>Information Sharing</h3>
-                <p>We do not sell your personal information. We may share your information with:</p>
-                <ul>
-                    <li>Healthcare providers participating in our program</li>
-                    <li>Service providers who assist in operating our program</li>
-                    <li>Legal authorities when required by law</li>
-                </ul>
+            <h3>Data Security</h3>
+            <p>We implement appropriate security measures to protect your personal information. This includes encryption, secure servers, and regular security assessments.</p>
 
-                <h3>Data Security</h3>
-                <p>We implement appropriate technical and organizational measures to protect your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure.</p>
+            <h3>Your Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access your personal information</li>
+                <li>Correct inaccurate information</li>
+                <li>Request deletion of your information</li>
+                <li>Opt-out of marketing communications</li>
+            </ul>
 
-                <h3>Your Rights</h3>
-                <p>You have the right to:</p>
-                <ul>
-                    <li>Access your personal information</li>
-                    <li>Correct inaccurate information</li>
-                    <li>Request deletion of your information</li>
-                    <li>Opt-out of marketing communications</li>
-                </ul>
-
-                <h3>Contact Us</h3>
-                <p>If you have questions about this Privacy Policy, please contact us at:</p>
-                <p>Email: privacy@saintdaniels.com<br>
-                Phone: (555) 123-4567<br>
-                Address: 123 Healthcare Ave, Medical District, NY 10001</p>
-            </div>
+            <h3>Contact Us</h3>
+            <p>If you have questions about our privacy policy, please contact us at privacy@saintdaniels.com</p>
         </div>
-    </section>
+    </div>
 </body>
 </html> 

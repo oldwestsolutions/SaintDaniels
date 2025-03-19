@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partners - Saint Daniels Healthcare Rewards</title>
+    <link rel="icon" type="image/jpeg" href="saint daniels logo.jpeg">
+    <style>
+        :root {
+            --primary-green: #1a472a;
+            --secondary-green: #2a623d;
+            --light-green: #5d8b75;
+            --primary-tan: #d8c3a5;
+            --light-tan: #e8e4d9;
+            --gold: #c6a96d;
+            --dark-gold: #a08c5b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--light-tan);
+            padding-top: 90px;
+            color: var(--primary-green);
+        }
+
+        header {
+            background-color: var(--primary-green);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 20px;
+        }
+
+        .shield-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            color: var(--gold);
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .partners-hero {
+            background: linear-gradient(rgba(26, 71, 42, 0.9), rgba(26, 71, 42, 0.9)), url('Poland.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--light-tan);
+        }
+
+        .partners-hero h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .partners-hero p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+
+        .partners-grid {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .partner-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .partner-logo {
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .partner-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .partner-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .partner-info h3 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .partner-info p {
+            color: var(--secondary-green);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .partner-link {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--gold);
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .partner-link:hover {
+            background: var(--dark-gold);
+        }
+
+        @media (max-width: 768px) {
+            .partners-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .partners-grid {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+
+            .header-container {
+                padding: 0 20px;
+            }
+
+            .brand-text {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Partners Hero Section -->
+    <section class="partners-hero">
+        <h1>Our Royal Partners</h1>
+        <p>We've partnered with leading healthcare organizations to provide you with comprehensive healthcare solutions.</p>
+    </section>
+
+    <!-- Partners Grid -->
+    <div class="partners-grid">
+        <!-- Century Mutual Partner Card -->
+        <div class="partner-card">
+            <div class="partner-logo">
+                <img src="century-mutual.jpeg" alt="Century Mutual Logo">
+            </div>
+            <div class="partner-info">
+                <h3>Century Mutual</h3>
+                <p>Providing comprehensive healthcare coverage solutions with a century of trusted experience.</p>
+                <a href="#" class="partner-link">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Subsidy Check Partner Card -->
+        <div class="partner-card">
+            <div class="partner-logo">
+                <img src="subsidy-check.jpeg" alt="Subsidy Check Logo">
+            </div>
+            <div class="partner-info">
+                <h3>Subsidy Check</h3>
+                <p>Ensuring accessible healthcare through innovative subsidy solutions and financial support.</p>
+                <a href="#" class="partner-link">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Home Health Care Online Partner Card -->
+        <div class="partner-card">
+            <div class="partner-logo">
+                <img src="home-health.jpeg" alt="Home Health Care Online Logo">
+            </div>
+            <div class="partner-info">
+                <h3>Home Health Care Online</h3>
+                <p>Delivering professional healthcare services directly to your home, ensuring comfort and convenience in your healthcare journey.</p>
+                <a href="#" class="partner-link">Learn More</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
