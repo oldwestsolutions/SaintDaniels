@@ -16,29 +16,50 @@ const dropbox = new Dropbox({
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(express.static(__dirname));
 
-// Newsletter route
+// Define routes BEFORE static middleware
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/enrollment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'enrollment.html'));
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
 app.get('/newsletter', (req, res) => {
     res.sendFile(path.join(__dirname, 'newsletter.html'));
 });
 
-// Define routes BEFORE static middleware
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/about-us', (req, res) => {
+    res.sendFile(path.join(__dirname, 'about-us.html'));
 });
 
-app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+app.get('/contact', (req, res) => {
+    res.sendFile(path.join(__dirname, 'contact.html'));
 });
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+app.get('/help-center', (req, res) => {
+    res.sendFile(path.join(__dirname, 'help-center.html'));
 });
 
-app.get('/enrollment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'enrollment.html'));
+app.get('/privacy-policy', (req, res) => {
+    res.sendFile(path.join(__dirname, 'privacy-policy.html'));
 });
+
+app.get('/terms-of-service', (req, res) => {
+    res.sendFile(path.join(__dirname, 'terms-of-service.html'));
+});
+
+app.get('/partner-providers', (req, res) => {
+    res.sendFile(path.join(__dirname, 'partner-providers.html'));
+});
+
+// Serve static files AFTER routes
+app.use(express.static(__dirname));
 
 // Handle form submissions with Dropbox
 app.post('/api/submit-enrollment', async (req, res) => {
