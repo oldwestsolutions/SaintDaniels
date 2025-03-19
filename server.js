@@ -32,6 +32,11 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
+// Add newsletter route
+app.get('/newsletter', (req, res) => {
+    res.sendFile(path.join(__dirname, 'newsletter.html'));
+});
+
 // Handle form submissions with Dropbox
 app.post('/api/submit-enrollment', async (req, res) => {
     try {
@@ -85,6 +90,26 @@ app.get('/auth/callback', async (req, res) => {
     } catch (error) {
         console.error('Auth error:', error);
         res.redirect('/signup');
+    }
+});
+
+// Handle newsletter signups
+app.post('/api/newsletter-signup', async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        // Here you would typically:
+        // 1. Validate the email
+        // 2. Store it in your database
+        // 3. Send a welcome email
+        // 4. Add to your email marketing platform
+        
+        console.log('Newsletter signup:', email);
+        
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Newsletter signup error:', error);
+        res.status(500).json({ success: false, error: 'Failed to process signup' });
     }
 });
 

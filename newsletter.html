@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter & Blog - Saint Daniels</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .newsletter-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form {
+            background: var(--light-tan);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 60px;
+            border: 2px solid var(--gold);
+        }
+
+        .newsletter-form h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .email-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .email-input-group input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--primary-green);
+            border-radius: 8px;
+        }
+
+        .subscribe-btn {
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .subscribe-btn:hover {
+            background: var(--gold);
+        }
+
+        .blog-section {
+            margin-top: 40px;
+        }
+
+        .blog-search {
+            margin-bottom: 40px;
+        }
+
+        .blog-search input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--primary-green);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .featured-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-post-content {
+            padding: 20px;
+        }
+
+        .blog-post h3 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .blog-post-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .read-more {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .read-more:hover {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="/" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="newsletter-section">
+        <!-- Newsletter Signup -->
+        <section class="newsletter-form">
+            <h2>Join Our Newsletter</h2>
+            <p>Stay updated with the latest news, health tips, and community updates from Saint Daniels.</p>
+            <form id="newsletterForm" onsubmit="handleNewsletterSignup(event)">
+                <div class="email-input-group">
+                    <input type="email" id="emailInput" placeholder="Enter your email address" required>
+                    <button type="submit" class="subscribe-btn">Subscribe</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="blog-section">
+            <h2>Latest Blog Posts</h2>
+            
+            <!-- Search Bar -->
+            <div class="blog-search">
+                <input type="text" id="blogSearch" placeholder="Search blog posts..." oninput="searchBlogs()">
+            </div>
+
+            <!-- Featured Posts -->
+            <div class="featured-posts">
+                <!-- Example Blog Posts -->
+                <article class="blog-post">
+                    <img src="blog-image-1.jpg" alt="Health Tips">
+                    <div class="blog-post-content">
+                        <h3>Essential Health Tips for 2024</h3>
+                        <div class="blog-post-meta">
+                            <span>February 15, 2024</span> • <span>5 min read</span>
+                        </div>
+                        <p>Discover the latest health trends and tips for maintaining optimal wellness...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <img src="blog-image-2.jpg" alt="Community News">
+                    <div class="blog-post-content">
+                        <h3>Community Health Initiatives</h3>
+                        <div class="blog-post-meta">
+                            <span>February 10, 2024</span> • <span>4 min read</span>
+                        </div>
+                        <p>Learn about our latest community health programs and how to get involved...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <img src="blog-image-3.jpg" alt="Medical Updates">
+                    <div class="blog-post-content">
+                        <h3>Medical Technology Advances</h3>
+                        <div class="blog-post-meta">
+                            <span>February 5, 2024</span> • <span>6 min read</span>
+                        </div>
+                        <p>Explore the latest advancements in medical technology and patient care...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function handleNewsletterSignup(event) {
+            event.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            try {
+                const response = await fetch('/api/newsletter-signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert('Thank you for subscribing to our newsletter!');
+                    document.getElementById('newsletterForm').reset();
+                } else {
+                    throw new Error('Failed to subscribe');
+                }
+            } catch (error) {
+                console.error('Newsletter signup error:', error);
+                alert('There was an error subscribing to the newsletter. Please try again.');
+            }
+        }
+
+        function searchBlogs() {
+            const searchTerm = document.getElementById('blogSearch').value.toLowerCase();
+            const blogPosts = document.querySelectorAll('.blog-post');
+            
+            blogPosts.forEach(post => {
+                const title = post.querySelector('h3').textContent.toLowerCase();
+                const content = post.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html> 
