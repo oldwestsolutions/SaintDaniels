@@ -1,103 +1,80 @@
 const express = require('express');
 const path = require('path');
 const { Dropbox } = require('dropbox');
-const axios = require('axios');
+const cors = require('cors');
+require('dotenv').config();
+
 const app = express();
+const port = process.env.PORT || 3000;
 
-// Basic middleware
-app.use(express.json({ limit: '50mb' }));
-app.use(express.static(__dirname));
-
-// Root route
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+// Initialize Dropbox with App Key and App Secret
+const dropbox = new Dropbox({ 
+    clientId: process.env.DROPBOX_APP_KEY,
+    clientSecret: process.env.DROPBOX_APP_SECRET
 });
 
-// Clean URL routes
-app.get('/enrollment', (req, res) => {
+// Middleware
+app.use(express.json());
+app.use(express.static(path.join(__dirname)));
+app.use(cors());
+
+// Serve enrollment.html at the root path
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'enrollment.html'));
 });
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
-});
-
-app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, 'signup.html'));
-});
-
-// Redirect any .html requests to clean URLs
-app.get('*.html', (req, res) => {
-    res.redirect(301, req.path.replace('.html', ''));
-});
-
-// Dropbox configuration
-const DROPBOX_CONFIG = {
-    clientId: '55yt9dc51h22wwn',
-    clientSecret: 'bnszbd6yizzw5zg',
-    accessToken: 'sl.BqGXXXX'  // Your Dropbox access token
-};
-
-// Add your secret key from DigitalOcean environment variables
-const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
-
-// Upload endpoint
-app.post('/api/upload-to-dropbox', async (req, res) => {
-    try {
-        const { filename, content } = req.body;
-        
-        if (!content) {
-            throw new Error('No content provided');
-        }
-
-        const dbx = new Dropbox({ 
-            accessToken: DROPBOX_CONFIG.accessToken
-        });
-
-        const contentBuffer = Buffer.from(content, 'utf-8');
-        console.log('Attempting to upload:', filename);
-
-        const response = await dbx.filesUpload({
-            path: `/enrollments/${filename}`,
-            contents: contentBuffer,
-            mode: 'add'
-        });
-
-        console.log('Upload successful:', response);
-        res.json({ success: true });
-    } catch (error) {
-        console.error('Dropbox upload error:', error);
-        res.status(500).json({ 
-            error: 'Failed to upload to Dropbox', 
-            details: error.message 
-        });
-    }
-});
-
+// Handle form submissions
 app.post('/api/submit-enrollment', async (req, res) => {
     try {
-        // Verify reCAPTCHA
-        const recaptchaResponse = req.body['g-recaptcha-response'];
-        const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${recaptchaResponse}`;
+        console.log('Received enrollment submission');
+        
+        // Get OAuth2 token
+        const authResponse = await dropbox.getAuthenticationUrl('http://localhost:3000/auth/callback', null, 'code');
+        console.log('Auth URL:', authResponse);
+        
+        // Create CSV content from form data
+        const formData = req.body;
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const filename = `enrollment_${formData.first_name}_${formData.last_name}_${timestamp}.csv`;
+        
+        // Convert form data to CSV
+        const csvContent = Object.entries(formData)
+            .map(([key, value]) => `${key},${value}`)
+            .join('\n');
 
-        const recaptchaResult = await axios.post(verificationURL);
+        // Upload to Dropbox
+        const response = await dropbox.filesUpload({
+            path: `/enrollments/${filename}`,
+            contents: csvContent
+        });
 
-        if (!recaptchaResult.data.success) {
-            return res.status(400).json({ error: 'reCAPTCHA verification failed' });
-        }
-
-        // Process form submission
-        // ... your existing form processing code ...
-
+        console.log('Successfully uploaded to Dropbox:', filename);
         res.json({ success: true });
 
     } catch (error) {
-        console.error('Server error:', error);
-        res.status(500).json({ error: 'Server error' });
+        console.error('Error uploading to Dropbox:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: 'Failed to process enrollment' 
+        });
     }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// Handle Dropbox OAuth callback
+app.get('/auth/callback', async (req, res) => {
+    try {
+        const { code } = req.query;
+        const response = await dropbox.getAccessTokenFromCode('http://localhost:3000/auth/callback', code);
+        console.log('Got access token:', response);
+        // Store this token securely for future use
+        res.send('Authentication successful!');
+    } catch (error) {
+        console.error('Auth error:', error);
+        res.status(500).send('Authentication failed');
+    }
+});
+
+// Start server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 }); 
