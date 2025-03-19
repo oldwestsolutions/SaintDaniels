@@ -761,14 +761,13 @@
             font-weight: bold;
         }
 
-        /* Remove individual icon styles and use a single, centered style */
         .social-icon i {
             font-size: 24px;
             color: var(--primary-green);
             background: none;
         }
 
-        /* Center text in bubbles */
+        /* Centered text in social media bubbles */
         .fa-facebook-f::after {
             content: 'FB';
         }
@@ -789,7 +788,6 @@
             content: 'IG';
         }
 
-        /* Common style for all social icon text */
         .social-icon i::after {
             position: absolute;
             font-size: 14px;
@@ -1176,6 +1174,9 @@
             flex: 0 0 auto;
             margin-right: 80px;
             max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .footer-slogan {
@@ -1250,12 +1251,10 @@
             .footer-logo-section {
                 margin-right: 0;
                 margin-bottom: 40px;
-                text-align: center;
             }
 
             .footer-links-container {
                 justify-content: space-around;
-                gap: 40px;
             }
         }
 
@@ -1490,7 +1489,7 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-container">
-            <!-- Logo Section with Slogan and Social Media -->
+            <!-- Logo Section with Social Media -->
             <div class="footer-logo-section">
                 <a href="/" class="logo-link">
                     <div class="shield-logo">
@@ -1545,7 +1544,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Saint Daniels. All rights reserved.</p>
+            <p>&copy; 2025 Saint Daniels. All rights reserved.</p>
         </div>
     </footer>
 </body>
