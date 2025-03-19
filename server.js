@@ -15,26 +15,29 @@ const dropbox = new Dropbox({
 
 // Middleware
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
 app.use(cors());
+app.use(express.static(__dirname));
 
-// Handle clean URLs
-app.get('/enrollment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'enrollment.html'));
+// Newsletter route
+app.get('/newsletter', (req, res) => {
+    res.sendFile(path.join(__dirname, 'newsletter.html'));
+});
+
+// Define routes BEFORE static middleware
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, 'signup.html'));
+    res.sendFile(path.join(__dirname, 'public', 'signup.html'));
 });
 
-// Add login route
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// Add newsletter route
-app.get('/newsletter', (req, res) => {
-    res.sendFile(path.join(__dirname, 'newsletter.html'));
+app.get('/enrollment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'enrollment.html'));
 });
 
 // Handle form submissions with Dropbox
@@ -97,22 +100,24 @@ app.get('/auth/callback', async (req, res) => {
 app.post('/api/newsletter-signup', async (req, res) => {
     try {
         const { email } = req.body;
-        
-        // Here you would typically:
-        // 1. Validate the email
-        // 2. Store it in your database
-        // 3. Send a welcome email
-        // 4. Add to your email marketing platform
-        
         console.log('Newsletter signup:', email);
-        
         res.json({ success: true });
     } catch (error) {
         console.error('Newsletter signup error:', error);
-        res.status(500).json({ success: false, error: 'Failed to process signup' });
+        res.status(500).json({ 
+            success: false, 
+            error: 'Failed to process signup' 
+        });
     }
+});
+
+// Add catch-all route for debugging
+app.use((req, res) => {
+    console.log('404 for path:', req.path);
+    res.status(404).send('Page not found');
 });
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    console.log('Newsletter path:', path.join(__dirname, 'newsletter.html'));
 }); 

@@ -3,199 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newsletter & Blog - Saint Daniels</title>
+    <title>Newsletter - Saint Daniels</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .newsletter-section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form {
-            background: var(--light-tan);
-            padding: 40px;
-            border-radius: 15px;
-            margin-bottom: 60px;
-            border: 2px solid var(--gold);
-        }
-
-        .newsletter-form h2 {
-            color: var(--primary-green);
-            margin-bottom: 20px;
-        }
-
-        .email-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .email-input-group input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid var(--primary-green);
-            border-radius: 8px;
-        }
-
-        .subscribe-btn {
-            background: var(--primary-green);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .subscribe-btn:hover {
-            background: var(--gold);
-        }
-
-        .blog-section {
-            margin-top: 40px;
-        }
-
-        .blog-search {
-            margin-bottom: 40px;
-        }
-
-        .blog-search input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--primary-green);
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .featured-posts {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .blog-post {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .blog-post:hover {
-            transform: translateY(-5px);
-        }
-
-        .blog-post img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .blog-post-content {
-            padding: 20px;
-        }
-
-        .blog-post h3 {
-            color: var(--primary-green);
-            margin-bottom: 10px;
-        }
-
-        .blog-post-meta {
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-
-        .read-more {
-            color: var(--primary-green);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .read-more:hover {
-            color: var(--gold);
-        }
-    </style>
+    <link rel="stylesheet" href="styles/newsletter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="container header-container">
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
             <div class="logo-container">
-                <a href="/" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
-                    <div class="shield-logo">
-                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
-                    </div>
-                    <h1 class="brand-text">SAINT DANIELS</h1>
+                <a href="/" class="logo-link">
+                    <img src="saint daniels logo.jpeg" alt="Saint Daniels Logo" class="logo-img">
+                    <span class="brand-name">SAINT DANIELS</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="newsletter-section">
-        <!-- Newsletter Signup -->
-        <section class="newsletter-form">
-            <h2>Join Our Newsletter</h2>
-            <p>Stay updated with the latest news, health tips, and community updates from Saint Daniels.</p>
-            <form id="newsletterForm" onsubmit="handleNewsletterSignup(event)">
-                <div class="email-input-group">
-                    <input type="email" id="emailInput" placeholder="Enter your email address" required>
-                    <button type="submit" class="subscribe-btn">Subscribe</button>
+    <main class="newsletter-container">
+        <div class="content-wrapper">
+            <h1 class="newsletter-title">Newsletter</h1>
+
+            <section class="blog-section">
+                <div class="blog-search">
+                    <input type="text" id="blogSearch" placeholder="Search newsletter posts..." oninput="searchBlogs()">
                 </div>
-            </form>
-        </section>
 
-        <!-- Blog Section -->
-        <section class="blog-section">
-            <h2>Latest Blog Posts</h2>
-            
-            <!-- Search Bar -->
-            <div class="blog-search">
-                <input type="text" id="blogSearch" placeholder="Search blog posts..." oninput="searchBlogs()">
-            </div>
-
-            <!-- Featured Posts -->
-            <div class="featured-posts">
-                <!-- Example Blog Posts -->
-                <article class="blog-post">
-                    <img src="blog-image-1.jpg" alt="Health Tips">
-                    <div class="blog-post-content">
-                        <h3>Essential Health Tips for 2024</h3>
-                        <div class="blog-post-meta">
-                            <span>February 15, 2024</span> • <span>5 min read</span>
+                <div class="featured-posts">
+                    <article class="blog-post">
+                        <div class="silhouette-placeholder"></div>
+                        <div class="blog-post-content">
+                            <h3>Community Health Updates</h3>
+                            <div class="blog-post-meta">
+                                <span>February 15, 2024</span> • <span>5 min read</span>
+                            </div>
+                            <p>Latest updates on community health initiatives and wellness programs...</p>
+                            <a href="#" class="read-more">Read More →</a>
                         </div>
-                        <p>Discover the latest health trends and tips for maintaining optimal wellness...</p>
-                        <a href="#" class="read-more">Read More →</a>
-                    </div>
-                </article>
+                    </article>
 
-                <article class="blog-post">
-                    <img src="blog-image-2.jpg" alt="Community News">
-                    <div class="blog-post-content">
-                        <h3>Community Health Initiatives</h3>
-                        <div class="blog-post-meta">
-                            <span>February 10, 2024</span> • <span>4 min read</span>
+                    <article class="blog-post">
+                        <div class="silhouette-placeholder"></div>
+                        <div class="blog-post-content">
+                            <h3>Member Stories</h3>
+                            <div class="blog-post-meta">
+                                <span>February 10, 2024</span> • <span>4 min read</span>
+                            </div>
+                            <p>Inspiring stories from our community members and their healthcare journey...</p>
+                            <a href="#" class="read-more">Read More →</a>
                         </div>
-                        <p>Learn about our latest community health programs and how to get involved...</p>
-                        <a href="#" class="read-more">Read More →</a>
-                    </div>
-                </article>
+                    </article>
 
-                <article class="blog-post">
-                    <img src="blog-image-3.jpg" alt="Medical Updates">
-                    <div class="blog-post-content">
-                        <h3>Medical Technology Advances</h3>
-                        <div class="blog-post-meta">
-                            <span>February 5, 2024</span> • <span>6 min read</span>
+                    <article class="blog-post">
+                        <div class="silhouette-placeholder"></div>
+                        <div class="blog-post-content">
+                            <h3>Healthcare Tips</h3>
+                            <div class="blog-post-meta">
+                                <span>February 5, 2024</span> • <span>6 min read</span>
+                            </div>
+                            <p>Essential healthcare tips and best practices for our community...</p>
+                            <a href="#" class="read-more">Read More →</a>
                         </div>
-                        <p>Explore the latest advancements in medical technology and patient care...</p>
-                        <a href="#" class="read-more">Read More →</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="newsletter-form">
+                <h2>Join Our Newsletter</h2>
+                <form id="newsletterForm" onsubmit="handleNewsletterSignup(event)">
+                    <div class="email-input-group">
+                        <input type="email" id="emailInput" placeholder="Enter your email address" required>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
                     </div>
-                </article>
-            </div>
-        </section>
+                </form>
+            </section>
+        </div>
     </main>
+
+    <!-- Simplified Footer -->
+    <footer class="main-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2024 Saint Daniels. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         async function handleNewsletterSignup(event) {
@@ -212,14 +103,14 @@
                 });
 
                 if (response.ok) {
-                    alert('Thank you for subscribing to our newsletter!');
+                    alert('Thank you for subscribing! You can now contribute to our newsletter.');
                     document.getElementById('newsletterForm').reset();
                 } else {
                     throw new Error('Failed to subscribe');
                 }
             } catch (error) {
                 console.error('Newsletter signup error:', error);
-                alert('There was an error subscribing to the newsletter. Please try again.');
+                alert('There was an error subscribing. Please try again.');
             }
         }
 
