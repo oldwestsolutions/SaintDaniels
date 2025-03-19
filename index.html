@@ -54,6 +54,7 @@
             background-color: var(--light-tan);
             color: var(--primary-green);
             line-height: 1.6;
+            padding-top: 90px;
         }
         
         .highlight {
@@ -75,15 +76,21 @@
         /* Header Styles */
         header {
             background-color: var(--primary-green);
-            padding: 10px 0;
+            padding: 20px 0;
             border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .logo-container {
@@ -92,23 +99,39 @@
             gap: 20px;
         }
 
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 20px;
+        }
+
         .shield-logo {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            padding: 2px;
+            background: transparent;
+            border-radius: 0;
+            overflow: visible;
         }
 
         .shield-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            border-radius: 0;
+            display: block;
         }
 
         .brand-text {
             color: var(--gold);
-            font-size: 32px;
+            font-size: 28px;
             font-family: 'Garamond', serif;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin: 0;
+            white-space: nowrap;
         }
 
         .login-btn {
@@ -364,6 +387,19 @@
             .hero {
                 height: auto;
                 padding: 40px 0;
+            }
+
+            .brand-text {
+                font-size: 20px;
+            }
+            
+            .shield-logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logo-container {
+                gap: 10px;
             }
         }
 
@@ -705,7 +741,8 @@
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
+            justify-content: center;
         }
 
         .social-icon {
@@ -717,13 +754,73 @@
             justify-content: center;
             align-items: center;
             color: var(--primary-green);
-            text-decoration: none;
-            transition: all 0.3s;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        /* Remove individual icon styles and use a single, centered style */
+        .social-icon i {
+            font-size: 24px;
+            color: var(--primary-green);
+            background: none;
+        }
+
+        /* Center text in bubbles */
+        .fa-facebook-f::after {
+            content: 'FB';
+        }
+
+        .fa-linkedin-in::after {
+            content: 'IN';
+        }
+
+        .fa-snapchat-ghost::after {
+            content: 'SC';
+        }
+
+        .fa-tiktok::after {
+            content: 'TT';
+        }
+
+        .fa-instagram::after {
+            content: 'IG';
+        }
+
+        /* Common style for all social icon text */
+        .social-icon i::after {
+            position: absolute;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: 0.5px;
         }
 
         .social-icon:hover {
             background-color: var(--primary-tan);
             transform: translateY(-5px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .social-icons {
+                margin-top: 20px;
+                gap: 12px;
+            }
+            
+            .social-icon {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .social-icon i::after {
+                font-size: 12px;
+            }
         }
 
         /* Interactive Elements */
@@ -1058,6 +1155,126 @@
             color: var(--gold);
             margin: 0;
         }
+
+        /* Updated Footer Styling */
+        .main-footer {
+            background-color: var(--primary-green);
+            color: var(--primary-tan);
+            padding: 80px 0 30px;
+            border-top: 2px solid var(--gold);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .footer-logo-section {
+            flex: 0 0 auto;
+            margin-right: 80px;
+            max-width: 300px;
+        }
+
+        .footer-slogan {
+            color: var(--gold);
+            font-style: italic;
+            font-size: 20px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .footer-links-container {
+            display: flex;
+            gap: 80px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .footer-section {
+            flex: 0 1 auto;
+            min-width: 160px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul li a {
+            color: var(--primary-tan);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(216, 195, 165, 0.2);
+        }
+
+        .footer-bottom p {
+            color: var(--primary-tan);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 968px) {
+            .footer-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .footer-logo-section {
+                margin-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+
+            .footer-links-container {
+                justify-content: space-around;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                padding: 0 20px;
+            }
+
+            .footer-links-container {
+                flex-direction: column;
+                gap: 30px;
+                align-items: center;
+            }
+
+            .footer-section {
+                text-align: center;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1273,27 +1490,58 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-container">
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="/about-us">About Us</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/help-center">Help Center</a></li>
-                </ul>
+            <!-- Logo Section with Slogan and Social Media -->
+            <div class="footer-logo-section">
+                <a href="/" class="logo-link">
+                    <div class="shield-logo">
+                        <img src="saint daniels logo.jpeg" alt="Saint Daniels Shield Logo">
+                    </div>
+                    <h1 class="brand-text">SAINT DANIELS</h1>
+                </a>
+                <div class="social-icons">
+                    <div class="social-icon">
+                        <i class="fab fa-facebook-f" aria-label="fb"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-linkedin-in" aria-label="in"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-snapchat-ghost" aria-label="sc"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-tiktok" aria-label="tt"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-instagram" aria-label="ig"></i>
+                    </div>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="/privacy-policy">Privacy Policy</a></li>
-                    <li><a href="/terms-of-service">Terms of Service</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Connect</h3>
-                <ul>
-                    <li><a href="/newsletter">Newsletter</a></li>
-                    <li><a href="/partner-providers">Partner Providers</a></li>
-                </ul>
+            
+            <!-- Links Container -->
+            <div class="footer-links-container">
+                <div class="footer-section">
+                    <h3>Members</h3>
+                    <ul>
+                        <li><a href="/newsletter">Newsletter</a></li>
+                        <li><a href="/partners">Partners</a></li>
+                        <li><a href="/help-center">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="/documents">Documents</a></li>
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="/about-us">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
