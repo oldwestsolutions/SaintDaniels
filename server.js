@@ -27,6 +27,11 @@ app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, 'signup.html'));
 });
 
+// Add login route
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
 // Handle form submissions with Dropbox
 app.post('/api/submit-enrollment', async (req, res) => {
     try {
